@@ -1,0 +1,164 @@
+{
+  "printShops": [
+    {
+      "id": 1,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 2,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 3,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 4,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 5,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 6,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 7,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 8,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 9,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 10,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 11,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 12,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 13,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 14,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 15,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 16,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 17,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 18,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 19,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 20,
+      "name": "In Nhanh 24/7",
+      "rating": 4.5,
+      "reviewCount": 128,
+      "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    }
+  ]
+}
