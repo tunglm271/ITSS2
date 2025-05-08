@@ -2,7 +2,7 @@
   "printShops": [
     {
       "id": 1,
-      "name": "In Nhanh 24/7",
+      "name": "In Nhanh 24/7 1",
       "rating": 4.5,
       "reviewCount": 128,
       "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
@@ -10,7 +10,7 @@
     },
     {
       "id": 2,
-      "name": "In Nhanh 24/7",
+      "name": "In Nhanh 24/7 2",
       "rating": 4.5,
       "reviewCount": 128,
       "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
@@ -18,7 +18,7 @@
     },
     {
       "id": 3,
-      "name": "In Nhanh 24/7",
+      "name": "In Nhanh 24/7 3",
       "rating": 4.5,
       "reviewCount": 128,
       "address": "123 Đường Nguyễn Huệ, Quận 1, TP.HCM",
