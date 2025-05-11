@@ -49,7 +49,7 @@ const ShopDetailDialog = ({ shop, onClose }) => (
             <Clock className="w-5 h-5" />
             <span className="font-semibold">Giờ mở cửa</span>
           </div>
-          <div className="ml-7">08:00 - 20:00 (Thứ 2 - Thứ 7)</div>
+          <div className="ml-7">{shop.openTime}</div>
         </div>
 
         <div>
@@ -57,7 +57,7 @@ const ShopDetailDialog = ({ shop, onClose }) => (
             <Phone className="w-5 h-5" />
             <span className="font-semibold">Số điện thoại</span>
           </div>
-          <div className="ml-7">0909 123 456</div>
+          <div className="ml-7">{shop.phone}</div>
         </div>
 
         <div>
@@ -65,7 +65,7 @@ const ShopDetailDialog = ({ shop, onClose }) => (
             <Mail className="w-5 h-5" />
             <span className="font-semibold">Email</span>
           </div>
-          <div className="ml-7">contact@inanthanhcong.vn</div>
+          <div className="ml-7">{shop.email}</div>
         </div>
       </div>
       <div className="flex gap-2 mt-6">

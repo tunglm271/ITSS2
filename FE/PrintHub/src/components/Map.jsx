@@ -15,7 +15,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-const Map = () => {
+const Map = ({ shops }) => {
   const [currentPosition, setCurrentPosition] = useState([21.004424, 105.846569]);
 
   useEffect(() => {
@@ -32,18 +32,6 @@ const Map = () => {
     }
   }, []);
 
-  const markers = [
-    { id: 1, position: [21.005, 105.847], name: "Shop 1" },
-    { id: 2, position: [21.006, 105.848], name: "Shop 2" },
-    { id: 3, position: [21.007, 105.849], name: "Shop 3" },
-    { id: 4, position: [21.008, 105.850], name: "Shop 4" },
-    { id: 5, position: [21.009, 105.851], name: "Shop 5" },
-    { id: 6, position: [21.010, 105.852], name: "Shop 6" },
-    { id: 7, position: [21.011, 105.853], name: "Shop 7" },
-    { id: 8, position: [21.012, 105.854], name: "Shop 8" },
-    { id: 9, position: [21.013, 105.855], name: "Shop 9" },
-    { id: 10, position: [21.014, 105.856], name: "Shop 10" },
-  ];
 
   const createShopIcon = (name) => {
     return new DivIcon({
@@ -85,10 +73,10 @@ const Map = () => {
           <Popup>Vị trí của bạn</Popup>
         </Marker>
 
-        {markers.map((marker) => (
+        { shops && shops.map((marker) => (
           <Marker
             key={marker.id}
-            position={marker.position}
+            position={[marker.latitude, marker.longitude]}
             icon={createShopIcon(marker.name)}
           />
         ))}

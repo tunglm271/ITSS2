@@ -1,26 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Filter as FilterIcon } from "lucide-react";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 import PrintShopCard from "./components/PrintShopCard";
 import ShopDetailDialog from "./components/dialog/ShopDetailDialog";
 import Map from "./components/Map";
-import { printShops } from "./fakedata.json";
 import OrderDialog from "./components/dialog/OrderDialog";
-
+import api from "./services/api";
 const SHOPS_PER_PAGE = 5;
 
 const Home = () => {
   const [activeFilter, setActiveFilter] = useState("Tất cả");
   const [selectedShop, setSelectedShop] = useState(null);
   const [orderShop, setOrderShop] = useState(null);
+  const [shops, setShops] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(printShops.length / SHOPS_PER_PAGE);
-  const paginatedShops = printShops.slice(
+  const totalPages = Math.ceil(shops.length / SHOPS_PER_PAGE);
+  const paginatedShops = shops.slice(
     (currentPage - 1) * SHOPS_PER_PAGE,
     currentPage * SHOPS_PER_PAGE
   );
+
+  useEffect(() => {
+    api.get("/shops").then((response) => {
+      setShops(response.data);
+      console.log(response.data);
+    });
+  }, []);
 
   return (
     <div className="w-screen min-h-screen bg-white pb-10">
@@ -32,7 +39,7 @@ const Home = () => {
 
         {/* Map and List */}
         <div className="flex flex-col lg:flex-row gap-4 mt-4">
-          <Map />
+          <Map shops={shops} />
 
           {/* List of Print Shops */}
           <div className="w-full lg:w-1/3 space-y-4 mt-4 lg:mt-0">

@@ -1,0 +1,608 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "user1",
+      "email": "user1@example.com",
+      "password": "hashed_password_1",
+      "fullName": "Nguyễn Văn A",
+      "phone": "0909123456",
+      "address": "123 Đường ABC, Quận 1, TP.HCM",
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    }
+  ],
+  "shops": [
+    {
+      "id": 1,
+      "name": "In ấn, Photocopy - In Bách Khoa",
+      "address": "Số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 4242",
+      "email": "in24h.daicoviet@gmail.com",
+      "rating": 4.7,
+      "reviewCount": 156,
+      "image": "https://lh3.googleusercontent.com/p/AF1QipONwFkmkFEXGozfEsOoGsHA3atFs8bE-xAt5X8q=w380-h385-n-k-no",
+      "openTime": "07:00 - 22:00 (Cả tuần)",
+      "latitude": 21.0075,
+      "longitude": 105.8425,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2000,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 500,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Photocopy giá rẻ Anh Tuấn",
+      "address": "Số 15 Tạ Quang Bửu, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 1234",
+      "email": "inbachkhoa@gmail.com",
+      "rating": 4.5,
+      "reviewCount": 98,
+      "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npFeqCAPwE_W87zCXuTg5yKnjkBLcyfaoRpVrHLJE0pQ0xgegVQoK3NtHpx3nN61kMsutKkQs9h2ysNWxLJZ6ikp6FiIE4YKgSp7bUskXzS57m4TQhT4VwlPq6Do39Mch2BRe7Fbs42TtI=s1360-w1360-h1020-rw",
+      "openTime": "08:00 - 21:00 (Thứ 2 - Chủ nhật)",
+      "latitude": 21.0078,
+      "longitude": 105.8418,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 1800,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 400,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Photo Tuấn Thủy",
+      "address": "36a Ng. 30 P. Tạ Quang Bửu, Bách Khoa, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 5678",
+      "email": "in.taquangbuu@gmail.com",
+      "rating": 4.3,
+      "reviewCount": 87,
+      "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nq8tgjwt8LHCacKihqvB8wUGnv64HkVwWpvUObrim0PM7Mg-lhwcokpxj724uZz2q0K7IZVlZ-3EJ-6G_ujP_US8t3INZbTf67fdhZBqTh7zFcQDxbtUAly8Fdip9irPhrTpVUN=s1360-w1360-h1020-rw",
+      "openTime": "07:30 - 21:30 (Cả tuần)",
+      "latitude": 21.0072,
+      "longitude": 105.8428,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 1900,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 450,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "name": "Photocopy shop Thanh Tuyết",
+      "address": "Ngõ 30 P. Tạ Quang Bửu, Bách Khoa, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 9012",
+      "email": "in.dhbk@gmail.com",
+      "rating": 4.6,
+      "reviewCount": 112,
+      "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4QBoRXhpZgAASUkqAAgAAAACADEBAgAHAAAAJgAAAGmHBAABAAAALgAAAAAAAABQaWNhc2EAAAIAAJAHAAQAAAAwMjIwA5ACABQAAABMAAAAAAAAADIwMjQ6MDU6MjIgMTM6NTQ6MDAA/9sAhAADAgIKCw0KCgoOCgoKCgoOCgsLCgoLCw0LCgsKCA0ICggKCgoLCgoLDgsKCw0LCgoKCgoKCgoLCw0KCg0KCgoNAQMEBAYFBgoGBgoPDgsOEBAPEA8PDw8QDQ8QDw8NDw8PEA8PDQ8ODw8PDw8NDw8PDw0NDw0PDw8NDQ8NDQ0NDQ3/wAARCACgAHgDAREAAhEBAxEB/8QAHAAAAgMBAQEBAAAAAAAAAAAABwgEBQYJAwIB/8QASBAAAgIAAwYDBQUFBAcIAwAAAQIDEQQSIQAFBhMxQQciUQgyYXGRFCOBobFCUsHh8DNictEVQ1ODssLxCTRjc4KSotIWFyT/xAAbAQACAwEBAQAAAAAAAAAAAAADBAIFBgEAB//EADYRAAEDAgMFBwMDBAMBAAAAAAEAAhEDIQQSMUFRYXGRBRMiobHR8IHB4SNC8RQVMlJDYqIz/9oADAMBAAIRAxEAPwAS+I3EYSR4iSiu2rBcxA8yMQCReUqGBDKSwy9GsXGWQkWvylFvwc3rpGD7x5kbd/PUTRg9QBy4K61mIALXspTgk7k1iKbqZyu1W64etMXiQOrQRya9GOWcLqNbJjGY2DlzZdToVktEFK6pZvF/Drhd7maL/u284FxUVkAFnQJIgAFqPcLErYMrED9nYROZsooblMK74T33oubyWKGZvL6kZ6FEXVOF9Bm67DYZUnBE3d4eulj5X+Q/y2ZbKCVrNyBT2o/D/L+WzbGyguMLSNg9RR7f1/Wm0q1PKuU3yp+HRh2P9flspKPllT4d6DaYch5Svl8bewy5TAUSfEbKOcjxCnbr3JZDP0616V3PT+XrYJUcqYEKwlnaQ5Y/KnQv6juIv0LV8h2In1AEZrdqmrCsYEcYzP6D6FmPYerN6ULJC7B4uU+SQTx7wASadT1DK6f4ZAC1fCy3w02vAVWGC1XPs0YyZrC1kWdShuyshhlSIMt+6XZMp6MyFaAABE4gPCmCSyDoNEwk2JH22N16TYLTqNElvXWq+9s2PQWLIJUMGyVPxlxnOwrjXnbnx8gGlt9jmlkR1zHXKkwzMRYEaqSOh2Ay0tTL9AV9cO8S5zHh5IwEnQSLMzG48RQEkYCobVlAbVgxOZQj6EJExMIzWytlw3vVklWJHlUrIENK3LaiNLNxkGxfLbNqFLAkbOU3GyA8DSExW6C9+YBwT1UdBXUi8wGnYubPYdLqgJKq61gtDvwoimQ+6q2a6j10Ov4aHZvF0tLJbD1NVmR4mYcV94ovoMwv5ZSbv8NqKowtVs106q3wfFcL9GRr9TlPwu/4HZUuIRcoUl1Q6ix+n4VpsAvRcq9NyYYXmYgqDp8KrUn8e1n01raGZdhaJUz+9eS/d6Fz2zAdF9FHzPbZd7ybBFa2LlW2C3cza+6vrpQH9wdzXQ+4NKz0RsMeHmi6rI47xDhizphRz55GzsAfKnlVUOIl1CnIqnILfpUaggDsFxgXXXQwS6w8+iUv2ueG+XPmFnySQteusMklfwG16DIVQRqqH2b5XC4gqQCsuGkWwWrlYlGk0BW9KI1oE2RVgq1HgPAR6bZaUx2+YgZ8JKp8wEiVWlOQ5BWiQBy/KAxGTSz72zMoQCHeL8N0k/0pIy23Ker93ITI75gBqDnU6jTKCK2XaCXFNGMgKVFd+4lZZY2YxCOZlYltIiuYEVRJptVy6k5QOo2g5gHNca8nRMJ4KQiWaELRUB2qT3yRZUuNazHzjJYUnq4VzIUCBKGTJhMxwZjkLMo8rBmGQm9VJ1Q9wQLr9kgg1pd1gjLgFX4keFFneXh4QivIi1KmZSaJrKK9SOt/C/ntZ18QytLGG7bFVtOi6l4nbUEfE/2ZBOz8t4gwsZMjKAdfe5b9brUgajoNs7VkFXdMggFBbE+z3vTDsWIuJVJzQSMQKBsvEaY/UgfHZF5EJpsqk3VxtjYiqiQOCLI5ZzHp6SIt6981DXZZyImC8OvtEgiZwvnCyFTYKZo7PS1sHKvQ9dDsmXTZHygXRK39vbD4VRNinCAWEWySxNWscYNyNoNaNX1UE7cE6BdiUN98eJ74sZQ32bDnTIrVK4N/20o0Wx1SE32MzAldmmUCbu6Ibq4Fm9V67vwEcahY/KBegArr2y/rs62AICTeS4yVlvbE4Z+/lFf67MP97Grk/wDvDbdafCCuRdBPws3JyXmVRl5sDaXpaPE9gdAcqN066X0Gy1QkxKOwQibvfiQrLhlIBQzxr/6ZMM9kj1zJX43pRt6bBLxqFu934ZWXHDUiTCyadz/YZh/DaFI+Nw4Jhzf0UrPiPx7FgjhcTk5sj4rEqR05kCynmAuQcwXOQlhqd82UWNvObJS7XQEwnhHDu7EJ9u3dVOOXIgsGJlotHJCbEbDQlR926ZZFzqUciLiLIgE3RI3fK6slLCfMSScPCSPK2oJj62RrW1lhKlzOz3G5KYikCAPmhRAm8QpWWJJWWkFJ5VAA6WuUChoAQOgA7bX9ajTYzvKQgu1VZTJe7I86aKTjt3FxmL8zXUSIjAE99QaBvqO/wO2YrvMSrmk0aIUeJ/GrxJPChYOY8tgkrUqsuUB2YCgQfJGpGgDC7FcXzomwEtcvCQDgAeeXLGvLOWmlJQdMpGp1GvTvsHNdEjRG3jnxZfAlYcPGrzNH5ZJCckWZpAcygW7fcgqCVAJ6PZGyzBJRHEAIeYPBYieNsdO/Om5xUWwJMaKWZ+tRRCjWUIASApFlduvxLaLwxovEzBjdExE8JnbELrKBrCXG25UGD32JRmiDKsYpmzFczZrIUtl5h6gqp8oJNkWQ23GAjS/VAOFOaNm/QKh418VwEMInklc3aoRlUWPdKcsEjW89MvYNodlquJcRu9fbqU/Qw7GuBjNz09+gIO9HfxO3Bv8AxJMk8WCxhKhA2Dk5LMq5srsk7KhbzG8jAUBQ21RwjWiBI81nM7wZN0GMdjpMJKsmLgxeFSPMJHmgkEQR1ZXqdVMRGVzqGNGtkamFMSCPnNNMrXgg9FZ7w4zws8OEeGWGWRJoM3LdWdQJMpEigl6HMNGqom6vbhY5oAcFDMCTCNvA3m5q+sU0emnazoP8H8dhMP6v0Tf/AAnmubniFvaWSURMGZYMwSM1o8xVpGShZz1GNS1lNKvYhbOiUaY1TXeyj7OuIw4OKxLyRCaPIcOjFRKnVftQHVQSci6NTNqEdleWUG65miwTZ7lxaAkMLYLSVQu2Wr9DoVBqjodD162xMbVwmYnZ7EJZZJd4k4YZZljllFyKAyohlIkbN5goVWPUADL9bytjabqTW7Q3zSFPCvFRzthdOzRMZwjvDEiMKjRko/LBkY+ZaWzShuzAUa1sdKO2fnvJI2W8pVvGWAvnjHeQWSSIpmRWK5WRXBKg5gtnNlBBGqk2febZHug69/snGwG6ief4+6y+I3JhVEUxSKLlyLKX8qKKZSBdgaE0OtWaG1fSDnnw8emi9Vcxn+Xw8ggJ4ieKsRlZorkfMLJ8qhQgAKGizAuMwYDIbJs3su+q9ohkC+puPpBHWfoZtaUcPRPirEm1g0gEHiSD0i86iIOdPjzJFE0UapTxmORm1Z42/tI2IOYofNVOpXO4GjMu0HjviC8TF4uGyNu/z2BRyspSGWGyYJ9APIrL8I7pxePkMEBLUhlKtSxIgdRZyJlHmcZbjaVhZAYI7K3oLBK3JuZ5rT8deDD4aOJpZYmllkyhI7ASNUuSQzEsX1aIBRChPMBzDpsjXxApNB1n58utJ2R2c3G1XNeSGtEyBJkmwvYWkzwXQfD4T0fX++q9unQIfqdvqbnBfNIdFle7ujkHQo3yZl/KpPl1/HYBAKI1xSz+3BwbhPsqYtIIo8dhsdh806RRI7RO/LdHlQB3S5A2VrXMAa00Sq0400M+k/ZGLgR0U3waxKs9FlDvzaQsMzLyZMxVdGYA9wNLF9dqXSqPm9WVKDScECfB/C4U4lHmRWezHE7D3XL3HYI6m8o9GI000Z/ckDOVM/vbfEcSNJIypGnvO3RbqgB1ZySAqAEkkCrKgkQgFluF95S4jmYwI4w8CyNhsPmVZMRMkTNzJ2f7vpSxo1xKzhySY0ZVDUmcuxOspaA7beiqeEfGObERFsRhzDiI53hZFcSR1khk5xmoALUoVlrOXoBKYUq7E0n1O7a+TAdG2JImN0ghMnD1KY8bYvHDf6KfuP2hMHFI8UokSISmTnM+G5dMcoVB9p5uYBSD917wPws9GplYWEGSSZ2bht3cChVhLg4HQALO8be0Vu2fOUlaFmlzkmMG1LsWDBjVEECx51HQg9FnsqRDXIlKpTBl7Zsf5tu/lCzi3doxkeMxcGIEiw01Nh3apJ5gqJG5eJUJLyOSiaAUVay2yLgWXcNN38flMUzmMN+eaHWM4HJJXEOiZaLcwGNgWGZCqMuZyep5SnKBmGjKCdtMi5shF0mwUvEcA4XlF4pc8kT5XDQS5YxnljbPcgVCHQnOVZMqFa86MCtaIE7babo91IUnkPdIGUAmTv0A3ngjz7K+GwJbERtyg6JGzsJy7Sqkd4h1hLSJDlaVozllcLKGU+7exXYamdTCTNes0S0GDtVn7TniDu7BDDTzx4iZZM8eHSPr5BG0rtzMRECPOhJUt7yeWtST+jwlQgubmI426SB1UqHaePw7XNpvDA7WwkxxIJR85uINEcoVYoHMG85yOxdIypKUWVbAe1DEec6WXEXhDr02Nd+jmLSAbiCDFxZzpANgZuLkA2VvuKWck8wRBb0y3qNa/bbp3NC76DaJlKAb5Qz9sXdubdm8iLtII8QCOo5EmHkaj/um2m4S1vOOtvuhBskhJnh/EusZu2ZlVGwm8Gw3NL+XJjoZoOY4ygxorKrtqxAcjQqLpXN3fPkp6mYK9+HsaUmU6/dyq1IQbClcwUg5TeUhSDROoPQ7edvXmtmyO/B0n+kJUfGqyxgf/wA+HRhliZwnLlkBBEkhRmzZ6IzZRkUyI5jhX1qZcHZbWtuQmVGseARK1+9eJ5MIWV3Xl55gilVJleJnjkw8QIj5TsY1BeWSZFjUhVBYvtSYc9yxtQ6OAM/S8q5qUu9OVh8Q1Gh2XG/1S84LxTdJZ3XllMMhaZVzILcsTHGqh1JBijXzKSKXVrayChRzd4xozERm2xrE6xMwNEGrVqk5ajjbZ82oD7hxEuIM9B5XWQvIFRmIaZmeV2Cg0rSFtSKzEjS12bLDqEhO9Tt0+FWKxEgigifmHuVyhbZVUsZMq1mcaXdZmrKjkDyHREaQdSiNxB4NYvARLLvOePEhGkCQx5ikJQIuHeNXy5piyoIuUqRwhZXeUmZ3MqlF1MSYXQ8OKqOEvaTxWBTE4bDwYJDjZM00k7PK/myjKskhAy0AozagdCANqhmILzFvrf7hXJwLspe1riBrGg8liN7+JPMQYYpgo45JFYvBMWyMxpPtEoWdFchSoZ1DDzHMtghqlUfMj0In/wBXVbWpNP8AkTbjb622cdEyHsI7oldZ1wwwzkvHHIJJ8QCerRnlLA6ENZAy2zMtV5FOwsRW0YZvOiGxn7kQPaZ8JcVxHvOPd2HC4XB7oiaI4x/vg8uIjw7yiOGNlLlXiihoyRurLM7D7rlbHwjMvAnYdw90PFOLKfeFrnNBAOQFxE8BppthML/+SkaBVJsj34h0NXRN9Naqx0rbZk8PRIOboM09bcP4V9ht4BtRlPxr+O0DBXgC3asj49bn52Dx8I0527p4xX7xhmqvjbDbzrM5EFdbquSuE3gzQ4krRZIUxKChY5WIwhdhfYRNJmHdQ3WqNFUt1TLT6JkfCvhyHEZncGwkcgyMUoSpnWsmWu/u0B2AoDY1EF7UKocplNhwt4GbsZjNB9qikWj93j8UALVWQrG8siL5SCrBRoQR028yS2ATERHBBe8tMqHvL2aMJOpWSbHujOzMr4lZLZ2ZpCWeDmjMzsWyyrmJu9Ni06zmU3UmxlIiIFhbS1tNiBUYHVGVTOZpJFzqZF9+u3huCEvGnsWrHHNFhZmCTZcxnKFuYDJlNLDRAz5hbqSb6E3sjUZEEbFYMrZkDN1eCe+8CJ4o4MHiYWn+8ljeUyOqCMgGNZUJjqjy0VnDOwzsOiwxBY45TGxM5ARdXvBHiaIHlGLwU+GLOYxLh8LiUkZNFBEeIaeXK1WGhkia6qDMAxHUe55lxXgANEx0O4MG0fMMajKryE5BGWAj6y5kEhe9c1q4ZdToRs9ROdmZx37UB4IMBc69y+IDyRRLLHNOGFVy425jCwxjps5pqrJHaso8xsjZIU8wPhkcE8yu6m4FjyDzRhxngo7RQRSJB9nw/MyygSOFeZ30zRw+ZltWcswz0mUM7RgkGHI0R6lV1R3ji86RqZ1i29S/Crw6x+Ein+yTRZMcUGaPEJh5USKSTSLnPGyFg7pqM3LY6hiCsXS03aLcVXmNM3lb1Qx8SOMcRA82BwZkWHCIkWI5UjoRMoLYhWfDARJHE9xAZshMBfM1k7SnOJIHsjUq1ShPdPcJ1ykieca8iunOM4qwqayyYNO5LyRr+Nsw169/X121LuMKvBZslQ4fHXdSa/asF8eXIsnfuY2a9evXXaMgbQuS0n8/hQuIfan3K65DiUtVKtccoBDj9lmjCt7pvKTlBF1mF8dUZlIJXIvZc2/Cvc0ssOIiKcwLFLBHNlzcqWTCtGUEtj7tonZ+VZDGNWAtQdqCu6XappgOqKXgtvh2GHhhrPicNBHmbN92qJ97K/vKSiNoBkRyI0pSzHY9CpkaTt2INRsngmHj8SMbh52MOHaSPLyFLGZFcRqOU7OIJBdHIWF0VPcFQOnIUXwbFXu4fGjHKZDLBh1A1yDEyBuhtQpw5ZiNPMVjDXp6DwJmFEtESiG/F3OiNDLIUDhQM1Eo5UAlQTTroCosAeXWtvPMghdY28qHu3gtHxEjDMDCEuQOY2JUMZLeLLmUkMzROrxNm91RW1QbuIT0wAsHxjvg2rKqvLmPlDBDkOrL5qVVaqDKdCADlW3VetWbRLQdNpPlsvfW4tfgrLD4KpiKb6jBpx+3JaVvFPcoUQy4/AwTqirMn2mKEZ8qlwRiRmqzXm8zLoxbbaYfHgUmhrxEbgZ6zIWIxPZFJ9RzqlMzOxz2wd/hcIKWHx7TdcWNw6YdcAORCs6zRzQIrySNOcsq4ZsjposgKxrLHLldGBMivU18RlqQwCI/aAB0EDy+6vcHQY2mS4uJn9znOPV2Y8rqYPFTDyFl+0RZwrLGZzicGGPMRSyYmSVYU+6PKhDqgZVLZnrylZL222X+fUqwfXbSAIJ26GBsjwxFgCbTeDYhe/DeMfC4fGYmamXCYNsQiiVJEkneSJMKn2lZJIGQvPEKjeQsfIB1GwYz2Fzsi/oqxxl0nTpp/C5//wCnpll52ZuesvOMlgnnB8xcnUMc4u9QSO+yulk1ZGzHblxER+8GJUE0MuHmux2yiiNLIJ0I1F9drM1HJRrQdFTBGelbmBjmGXI+YELpXlOpOh60SLrWhl6Jl3Ba/hfw2zJKCmLaal5ajDYqQOpzc0sIYJXUBR5TkVCxALjUiLqrdpXgx50C3PCCbxjwuB3ccIIBFj5cVE8wkSefmwYuOSFMOyo7AROz8zM5Uw3WUUFXVA6TIgbUYUnA7ZI05LY+D/hdiIKUuYwg5aE4Scnkkl1TMiNnoEeYMVNCwSukAae14H1/KmWVRow9Pwtv4gw73ijeTDTymFTlKqMkgQKmZ1VowzKzsfKQkgKmmN5NljXpNflB+skj1Rxh6rmBxAB3QAfRCnwgliw+KGPlUTyxlw4M80UhN5JCGjdI5JspbOk8TsxQDOGUDZ4jMLFJAxqE2vD3ifg8YQYGAmApkcsJiqg1mR5HDZcx80RZFJottUVa1bDkEiR5FWtGhRrggG/mPpuVzwbxqivvGKfLHiOU06AEhZISGCslk6rYEyEns9ANlVqkWv8AG3RIVqb6ZyuCAPiXxKofmKQRHEQSrCwXYZBV2byHp2Ha9qvtK4a0bT6fyrzsgwXuO756JL+I958xsRISbnmeVOmsWeXJRP7IJUAUNF06DbwlgA3KdUh10P5YSgBUkW1ALp8dfXqNNB163tatqNebNGgvy99qqKjS0aoi8O75Z4kEuRmAKnTUqD5eZplY16X8TZOz9B7meJpIPBZPtWuS9jAdBPX+F+7y3sQCFJArUA6HUdV6HWuo+Pbbzrmdvmk8I5+cNaSBw0WexSI/9pHE5u7ycs/GzCYy1982bXXaAYCtQHFMJuni2WCmV5gwbMrGRmUDWtQSyn1BzZV0PvbMINlbr41Y/IFWeVIySaiZYy41LBmiCNKbOYmQzAsxtWzbcaI0UiZuVlcDicTPKBhBisTiQ1gRZnkVmDU7SRkLEDZGeVoV1OYjqeOtddF0bvCbhXe0s643GgBDhhh0OJkM2JEOcuoQJaIGstIXlld6jzZctbZbtDGUn+AEyN2nz5dans7B1GeMxB6/PllO4x3bvqFpSvMGGZHOHl3fDzihUO8aY7DmOafMx8geBjEDkJAByCWDq4OqMrx4v+xj2EeaHjWYym6WHw/9RPuZ8uSOnsz4fGYzAyS4/D4jCzAsg+0Q8oyoChjl5TBXUkUHuONC4ZkUIV2rsWxlN57o2jpwlN4es+o1veC89eKzni97L3OYYjCxU2RuY6SKMxKhUDw5bkIOV8wuQqvJUkORs5gcU2nTJe8jcMoLeZdmkcspG8pXG4dz6gDGNjacxDuQblg8y4EbAUo27OAt4ArHFgN6viQuZskbUrr1cTMEWOvIwRgJTnzMkWg2vHYyiBJcOvyR5KnGGqzofnofNMF4deG2/MSDFvbCxph8n3MuIljfEJIB7sgiLh0ZbGZskqUWLObXaifjsPSdmok31AHh5jcfJXTMJXqty1YtoZvytsWG4q8NsPh2ljrlOoKyR8x8ykqte8xtSK0FK6NYNMG2se9ZVAghItpVKJmCk84rwiwO0f7CkhCWB0oHQ36V2BrsNoPpkqYrBZHExNIyKAxsFgFGby2dQBpVrqR0GuvQsUm5RdLVn5iIWw3YQqqvoPz7/mf+m1i2whYfEuFSq5/H8Lxx04On9fX+h8dpDerDA0oBf9FFP9fy2mrVMrwP4Sbxx7BQqorDKTL5bB1JKC5Xa9TmIN6CgAoICEMiE2nhv/2fmFQK2KaTFNocmsMV/wCBCGYHuJJGU9126TuQ7Lae0FvfD7g3e0kEcKZiIYIEURo2qiUFYwKGQ5MwsoZA3bZOqwukA3PlxTNNwBnYPkJfOEfbq3diJY4BhMYJJCwW2gC2qs5BInY9EIFDU0O+2Mr9mVGAuzCPqtdR7QL3BgF0a/8A94USq4Z7saGZRYOg6XpRsiu1kabVfckfuHn7qz/UPz8LVcO+MuIcPlgRRYUhp7sN/uu1f9NoEvZo7y/K5/TlxBJUgeL2MjUlYoQFGgMga/eIu8OaNj8PwrbjcRUaPC7/AMj7ypuwbXnxE+nos/B7QWOLaJCpNkmwexvQQi77+unpsM1KhJcXmeTfZTODbGXZ9fdZjxA9pDHQI7ZcO1C6IYgmhXSu+xcOzvXhhJvwHshVqXdMLwdPm9LlvvxOfeczS4gwwzqiR5FYKuQZ+WYyzEsScxoa6+6BtduoGmLfOgj0QsM9rxE3PX39VR7/AJ44Q0iMolIFDIGDmwPvUb3hR0erT16qxcLiHgxePL56qGOwlJzZMB2zYT7/AGXzujxGZ45MOGSB5Y3jsxR5PvFZSUUOgZqPR1YH939ra+DpWPc0gW67kt/EnDU2Gblyij+ywsq475GoXXcEBhpYFjZsOlZmrQLDBVAmM7Hpffp/L9NiAq5ptysAXs79lIDHUBtbqu3f51YJGh6bTU13I8GOGYazQq1fvFFUE+imyx/QbMQAknE7UaIcFW0CV1ui5bf9o54kHGYv7LGahwa5Rd+aQ9X+RJYjQ2mRtkqlQNkq0o0SQke3TjgMWmXyjm+X4ZlIWvrsjUvRM7k7TgVxG9PFwVx9myxy6OF8r2TakAqCdLo2Aa6We+2UqM2ha2lU2FHrw+xYIboRam/lmPz/AJbI1gnGrQbzFRudDqosemSQj8aIs9CRffZKEwNR83LH7t98nsFP1OUV+v5dzt52imhn4/8AFPIjzKaLuI10BOVs3NCA6WEDgEmr1PoLPsppNadwPt91V9puAoEbyPWfslV4cxpLs2cRkSBkZgTl5aIUFDUkuCV+LD57auo2WlsxO3ms3Sfle1wExeOV/RT93bkaUqseX3gdWUUFK9STp1Hz2FVcIudCPdeoUzMgagx0j7ogReCGKej9yne2kodqIIUkHv6fHWtl/wC40RtPRF/t1Y7B1VrN4AYuVDFO8EkZugzyMwNWGU8q2+HmBUGweoMx2tRG8/T8oZ7Hqu1j59EP8F7FGKYkc6MAf+C7aep86jTub69QOm0v73SGrD5Ig7Dqf7joVYS+xNIFOaSWWhfkw9AGtMjcwkUe6k+hrrtH+9tJ/wALcSuf2YjWoOi614HFSoAiZY1UVoq9B8WzH563tT1O3a/+0cgPvKOOy8OP2zzJQh9qHxmbBYSROY/2rFI0EKoxBQupEk5yil5Sm0J96XKo7kFwOJxOLqguc7ILnYDwtEzt4KNajQotIa0Seo4+y5jcfYhpSWlJVpas+8QqqqoD8kVQT016dBtfd53j+SVLO6p8ShpFwMRKkocZVkVvcbUKwNX0FgfLYzneAtjYUm0TUDuIR7l3sPum7mJemmtjrtniFpAUwXs+b+ZhIrai8vfp00v5/PpsjiWhP0XTZG/iLE/ckjuwH0Vh+QP5bVsJ1uqyO4l99j2AHysv/wDX8dPTbjgilKF7S3iKZMVPgwDWG5bFr0BeIE5tBWjoVbNRzEHUCtl2ZhsmFFT/AGJ57h6H4VjO06pfiSzcB7n7IU7uWhzCRY9GU6g6dD8yO9bN1LkDj6XS9DR7uEdSB7qZ4f7ydJWkOqOSTp2PusB00sVfT3dAdqKpWEkyr+lhyWgQnJ4AlV1VSRmrMCbIKnQeVIWJFUbVgVNBmAzDavqMEyEy2o4WOxENNzIp6jNWqqrFaFAEGRCKNalVUixoQbIHPTDTbRQ8IjI4YMpKsGtFydCdAQ7nLWn7S1+zRoizWRNbImYbxERxldADVZtDm6WJL/PsNKA0G3AUo6gRoURsXvk9FOv97UfRQp/C6Pc7WxxGFZdlP6wPyqgYHEPs+p0n8Lnx7SPFU8+MkjlCIIWMaqgNUKzMzMWLMRWui0RSjUm5p1QaRcNseiS/p+7fk+Slf8St+HmEA0FFfXWtQe2X8dmMK3w5t6hiz4g3d6lQuHd6M8RJ6g19Dp0A7H02acNiRGqIWDIPK7ARr/xf5D8fptnSVpmiyYv2c5bzg9Awuu12Sfy2QxJT1HajrvnFXAnq0jH8By9fofhqenfZABONs5US+VWrTzUR8ATQ/wDkduwpOKW7C8OO+Ox+IkiEQlKwxGwWlWF3QzSUTQdTGEshgqg0tDbf4QZcOynwnqsBjHZq73cY6WWU8aOCBhqyKYzKrZgWJtnGXMvUVRb9q7UUABovijkBfuHrCawUPIp7yD0BMeiw3CmEpch6nyg/gL1/w/Dt8NsZWJD8+wXPzmtvRAy5TqjpwhxQ0YXU5SxCj0vQj1ohh0OpzA6O+3sLUE92VPF4fM3vBrtR/wAH4kCTylF7LmWyPdJBdhqlZV66Gz00UkfTAEqtZM2VhgirDqnW6F3dnQ60D8QT1GnbZRycaFLbCLoBYPQUAPl6/p9Tt5sqTkYjuxc10CRYzULAPVb60aHTb2Z0ZQbaxsUAxubNF9EmvtbcPiLFc3os0IkJ+K2knX/y1J9L9CNrjCvJpBo5fOqrcRTDamY6a/OiRDijFlizHq5J+V9Pp0/DbUsaGAN3LL1HF5nevXg6WkkX0P8AAf5bScgHVETcU1qvxF/QUK/PagqN8RC01M+EJkfZ3xekx/w/Wm/rXT8tqvFCIVhQRyxmIGTDKehnkv40kF/8OyY0TG0rPbz3plVQeozXrfR3uz3uhXTboErxKyW5oAcsr+6hDk1plbRr+QbMPVlUdSBt9EZYBfPKhzOPFYX2tN539igA8xeSU9q5ahFVj1pjMxHoYydq/tAyzLv9FZ9kj9Qu+nVCvd2D90+gJOle/oPpW2GeDJHyy+gt2ELU4RfKAeiofz8qV9b9aHXTQbWxprKYzSJ4Iibr307KZNCQFDilH+E1QHU/MXZJNsLSic5hVNemKYn4fyEQOHuMswS6ayDS2AOwvpRFfH8fNtKph3CYSrKrSiBHiFNx1lr01sHUEdCw1/A61qaVFMi6PN7I042QDr30+va+vX01+hOw8s6IrUsXtxbjD4OLEr/q2aNiP3JEtrPcXCRemjfHa07PtVynePb7hV/aH/yLhuPz1XNnfKA6jUDT8a+u2tIWPlRtw4wIHuySLofMjbkSuEIgcNYu0jPSxqPT4frtSVWw881fUD+mOSYzwDl0lHqR+j/5/PasxTZhWdA6ov8AFO9wqYY9cryv63lyAfUgD43d7JNZZHLrrE8U8RDKNbsk/MHOf1I2MyndDc9E3gXhUHDFGDEzJXuHpQyEFhlOtEa0dNTtt6TctMN4BYes6ahcN6W32iuF8SphxEmQiIDDvlcsbyq0ZZSoCEqys1PICzXZrZbEU87U3hKvdvtzWT3JD5a6gtS/BVA/5r2yNdkOlbzDvlsK8xOB9xR+0wH0v+dbL09rtyaeLhu9bndiZKrX94eqNo6kd+p0Pb1qjKkSH5hZEqUg5mQ3Wx3fgkXLy65RAC6Cv2hkNkkMuuYMNR0LHa6zGoJWf7ru3ZdAOiIW6Gk66qAB1yqBdAUxpR1GhNn47cZhKjtGlRfi6LP8nBMTjIgR8PxvqK6bVAEJ4FDXx+4YWbAYuMAUsJlAA/2REjAD4qrD8diUHFtQH5w84QqwmmQuQWIwhXmIeqMQfmDX/KdtxqJCw2hg7FX4XAlmpRmIH6dTp/XXYZaSihwCJHC3CmJKACKSwWFZSNMxrVqHy12r6lFxdorGnVblCPPgvw3i1zjlsMwJBLqAMg1vKWa9fStKu6GwHYQvuSEy3FBpgAou7/4AxDRpnZEKqSMuozO7GmY0gqtQdenrtJuCY3Uk+SgcW86AKswfhShZeaXejYBygZSTV5R5r72KykVZN7GbRpt0CUfXqHaj/u6qr+q8v9adB8iTZgqocEOPF/gUTxTJ/tI7HwkjJKkD1IY38E66bccJEKIdlIO5KJwtKQMrimjJDD+8Cc/53+O2ZxlGNFtezq8iCt/urAB6J7a/9Pz2onHKYWpYMwlWOD3gAyEguA65kBIzKG1WxZXMNLAJF3WlbWeHpSQAEvVqBrSSYsb7uKZ/f3JjiixeCREglAYCJEi5ZZQMsjDKazaMS2ZbYEmmrZUKIByQAV8vxFeo+73F3MlafAeFyyKGxd84ghkicFMtnLqUu8pGYhtTdE7aej2e0AFxMrMVu0DMM0+cURHj6j8dvkBX2NV2MwwYFW1BBUj4Gww+h2gTluigTZca/Evh04fGYiBq8sjC+zUSGP4kPttqJBpiFhMQ0tqlSfC/dIMzH9xa6A+8wyk338p+p2k8wF5gkph9yBnKoCSb0FnrpXpWveux2BM2TIbCZXhTcYhRL8pMba6fv4bWj1+F63rsWICgXXsqDf01nKPdqx9aJrXsuvyOyziptUvdWCUBTrff9PT4fSvgNoKLnLc4Fqo+oH6D+vz2Ya5KPbtC9964WwGq682n4ggfEroPnscJYpN/Gvgg4bFOVJRZxmDAWBIKDEdV7qwBuyT112RxVMbtVbYCrFp0UvcOIIA+Hmv8dOny/DT12yNWleV9Dw9WRC+N778IL5AoMiMclg/dki0oNd5SxyEarQNi7usBSgZncI9+qoO1sR4u6bzP28kdPAbxRjkh+yzjyEqvm7Mw0bzaG2Byg6NIcrZVattMx8EOOo8x+PRY2tT2jQ+R/KZPCY4NmqsyeVgOxq1ZenlZaZGqmU6hWDKNvRqiqwOCwVek6k/K5WeIbvt8OX3hQMQKvYTyjNXLn25dwpHvNpI6yyBboUA+RGYfG2djY+PXbWdnPLqIzfNn2WP7TYBWkafD9yst4NR6O4Bt3A6dgoP5Fz9NnHpWlpKZ7wR4UMr85vdj6WOpIs0Pheup1NdjtBjZKM9wARQ4r4iXPkXUCN9TWpEmG06309AdCa7117hEIQVNgcMxNn+tBdfp+vfZYrxdC026d2XoOmn8tuAKJK12FwJ8oHT+AHb+jsUC6gTZW88NACta/EfP6euzAQC1Bf2hOBjPhy6j7yD7xOvRNSK6m4yQP79H02k9mZsLtF/dvB2IC8PYUsFQVchFm6GoXMWJ0XKos2aGUnbL16UOX0DC1wKeYrLcRbtey5sMHIU0AaCjJVH0XQ0b72TtdUS0ANGkLK1y5zi92pK0PAsrSMZVWyVJyLmOYqysyKARTAWyFjqVF6WQ3n7shBazvQQU3nh9xm0sSyJ5p8OMrKp/toPeyG6N0c8JPmWQ5SPvmG13hMR3TwP2lZ3GYbvAQdQv/9k=",
+      "openTime": "07:00 - 22:00 (Cả tuần)",
+      "latitude": 21.0079,
+      "longitude": 105.8422,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2100,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 500,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "name": "In Nhanh Lê Thanh Nghị",
+      "address": "Số 3 Lê Thanh Nghị, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 3456",
+      "email": "in.lethanhnghi@gmail.com",
+      "rating": 4.4,
+      "reviewCount": 76,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "08:00 - 21:00 (Thứ 2 - Chủ nhật)",
+      "latitude": 21.0071,
+      "longitude": 105.8415,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 1950,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 480,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "name": "In Nhanh Trần Đại Nghĩa",
+      "address": "Số 5 Trần Đại Nghĩa, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 7890",
+      "email": "in.trandainghia@gmail.com",
+      "rating": 4.2,
+      "reviewCount": 65,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "07:30 - 21:30 (Cả tuần)",
+      "latitude": 21.0076,
+      "longitude": 105.843,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 1850,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 450,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "name": "In Nhanh Giải Phóng",
+      "address": "Số 10 Giải Phóng, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 2345",
+      "email": "in.giaiphong@gmail.com",
+      "rating": 4.5,
+      "reviewCount": 89,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "08:00 - 22:00 (Cả tuần)",
+      "latitude": 21.008,
+      "longitude": 105.8419,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2000,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 500,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 8,
+      "name": "In Nhanh Bách Khoa Express",
+      "address": "Số 12 Tạ Quang Bửu, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 6789",
+      "email": "in.bkexpress@gmail.com",
+      "rating": 4.7,
+      "reviewCount": 134,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "24/7",
+      "latitude": 21.0073,
+      "longitude": 105.8427,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2200,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 550,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 9,
+      "name": "In Nhanh Đại Cồ Việt Express",
+      "address": "Số 2 Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 4567",
+      "email": "in.dcvietexpress@gmail.com",
+      "rating": 4.6,
+      "reviewCount": 98,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "24/7",
+      "latitude": 21.0077,
+      "longitude": 105.8416,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2100,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 520,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 10,
+      "name": "In Nhanh Bách Khoa Pro",
+      "address": "Số 7 Tạ Quang Bửu, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 8901",
+      "email": "in.bkpro@gmail.com",
+      "rating": 4.8,
+      "reviewCount": 167,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "07:00 - 23:00 (Cả tuần)",
+      "latitude": 21.0074,
+      "longitude": 105.8429,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2300,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 580,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 11,
+      "name": "In Nhanh Bách Khoa Plus",
+      "address": "Số 9 Tạ Quang Bửu, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 2345",
+      "email": "in.bkplus@gmail.com",
+      "rating": 4.4,
+      "reviewCount": 78,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "08:00 - 21:00 (Thứ 2 - Chủ nhật)",
+      "latitude": 21.0081,
+      "longitude": 105.8421,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 1950,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 490,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 12,
+      "name": "In Nhanh Đại Cồ Việt Plus",
+      "address": "Số 4 Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 5678",
+      "email": "in.dcvietplus@gmail.com",
+      "rating": 4.5,
+      "reviewCount": 92,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "07:30 - 22:30 (Cả tuần)",
+      "latitude": 21.0072,
+      "longitude": 105.8417,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2050,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 510,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 13,
+      "name": "In Nhanh Bách Khoa Elite",
+      "address": "Số 11 Tạ Quang Bửu, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 9012",
+      "email": "in.bkelite@gmail.com",
+      "rating": 4.9,
+      "reviewCount": 189,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "24/7",
+      "latitude": 21.0078,
+      "longitude": 105.8426,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2400,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 600,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 14,
+      "name": "In Nhanh Đại Cồ Việt Elite",
+      "address": "Số 6 Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 3456",
+      "email": "in.dcvietelite@gmail.com",
+      "rating": 4.8,
+      "reviewCount": 156,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "24/7",
+      "latitude": 21.0076,
+      "longitude": 105.8414,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2350,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 590,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 15,
+      "name": "In Nhanh Bách Khoa Premium",
+      "address": "Số 13 Tạ Quang Bửu, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 7890",
+      "email": "in.bkpremium@gmail.com",
+      "rating": 4.7,
+      "reviewCount": 145,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "07:00 - 23:00 (Cả tuần)",
+      "latitude": 21.0079,
+      "longitude": 105.8424,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2250,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 560,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 16,
+      "name": "In Nhanh Đại Cồ Việt Premium",
+      "address": "Số 8 Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 4567",
+      "email": "in.dcvietpremium@gmail.com",
+      "rating": 4.6,
+      "reviewCount": 123,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "07:00 - 23:00 (Cả tuần)",
+      "latitude": 21.0073,
+      "longitude": 105.8418,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 2200,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 550,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 17,
+      "name": "In Nhanh Bách Khoa Standard",
+      "address": "Số 15 Tạ Quang Bửu, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 8901",
+      "email": "in.bkstandard@gmail.com",
+      "rating": 4.3,
+      "reviewCount": 87,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "08:00 - 21:00 (Thứ 2 - Chủ nhật)",
+      "latitude": 21.0075,
+      "longitude": 105.8429,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 1900,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 480,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 18,
+      "name": "In Nhanh Đại Cồ Việt Standard",
+      "address": "Số 10 Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 2345",
+      "email": "in.dcvietstandard@gmail.com",
+      "rating": 4.4,
+      "reviewCount": 95,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "08:00 - 21:00 (Thứ 2 - Chủ nhật)",
+      "latitude": 21.0077,
+      "longitude": 105.8415,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 1950,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 490,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 19,
+      "name": "In Nhanh Bách Khoa Basic",
+      "address": "Số 17 Tạ Quang Bửu, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 5678",
+      "email": "in.bkbasic@gmail.com",
+      "rating": 4.2,
+      "reviewCount": 76,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "08:00 - 20:00 (Thứ 2 - Chủ nhật)",
+      "latitude": 21.0074,
+      "longitude": 105.8423,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 1800,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 450,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    },
+    {
+      "id": 20,
+      "name": "In Nhanh Đại Cồ Việt Basic",
+      "address": "Số 12 Đại Cồ Việt, Hai Bà Trưng, Hà Nội",
+      "phone": "024 3869 9012",
+      "email": "in.dcvietbasic@gmail.com",
+      "rating": 4.1,
+      "reviewCount": 68,
+      "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "openTime": "08:00 - 20:00 (Thứ 2 - Chủ nhật)",
+      "latitude": 21.0076,
+      "longitude": 105.8417,
+      "services": [
+        {
+          "id": 1,
+          "name": "In màu A4",
+          "price": 1850,
+          "unit": "trang"
+        },
+        {
+          "id": 2,
+          "name": "In đen trắng A4",
+          "price": 460,
+          "unit": "trang"
+        }
+      ],
+      "createdAt": "2024-03-15T08:00:00.000Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD123456",
+      "userId": 1,
+      "shopId": 1,
+      "status": "completed",
+      "files": [
+        {
+          "id": 1,
+          "name": "document1.pdf",
+          "quantity": 2,
+          "size": "A4",
+          "format": "Màu",
+          "price": 4000
+        }
+      ],
+      "totalAmount": 4000,
+      "pickupTime": "2024-03-16T14:00:00.000Z",
+      "note": "In 2 mặt",
+      "createdAt": "2024-03-15T10:00:00.000Z"
+    }
+  ],
+  "ratings": [
+    {
+      "id": 1,
+      "userId": 1,
+      "shopId": 1,
+      "orderId": "ORD123456",
+      "rating": 5,
+      "createdAt": "2024-03-16T15:00:00.000Z"
+    }
+  ]
+}

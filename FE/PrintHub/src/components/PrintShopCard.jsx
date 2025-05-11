@@ -18,7 +18,7 @@ const PrintShopCard = ({ shop, onDetailClick, onOrderClick }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-3 border border-gray-100">
+    <div className="bg-white rounded-lg shadow p-3 border border-gray-100 fade-in">
       <div className="flex space-x-3">
         {shop.image && (
           <img
