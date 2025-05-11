@@ -1,6 +1,7 @@
-import { X, Trash2 } from "lucide-react";
+import { X, Trash2, Loader2 } from "lucide-react";
 import React, { useRef, useState } from "react";
 import OrderSuccessDialog from "./OrderSuccessDialog";
+import { uploadFile } from "../../services/cloudinary";
 
 const defaultSizes = ["A4", "A5", "A3"];
 const defaultFormats = ["Màu", "Đen trắng"];
@@ -12,6 +13,8 @@ const OrderDialog = ({ open, onClose, shop }) => {
   const [note, setNote] = useState("");
   const [errors, setErrors] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const fileInputRef = useRef(null);
 
   if (!open) return null;
@@ -42,7 +45,7 @@ const OrderDialog = ({ open, onClose, shop }) => {
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
     if (fileList.length === 0)
@@ -50,8 +53,38 @@ const OrderDialog = ({ open, onClose, shop }) => {
     if (!date) newErrors.date = "Vui lòng chọn ngày nhận.";
     if (!time) newErrors.time = "Vui lòng chọn giờ nhận.";
     setErrors(newErrors);
+
     if (Object.keys(newErrors).length === 0) {
-      setShowSuccess(true);
+      setLoading(true);
+      try {
+        // Upload all files to Cloudinary
+        const uploadPromises = fileList.map((item) => uploadFile(item.file));
+        const uploadResults = await Promise.all(uploadPromises);
+
+        // Filter out any failed uploads
+        const successfulUploads = uploadResults.filter(
+          (result) => result !== null
+        );
+
+        if (successfulUploads.length === fileList.length) {
+          // All files uploaded successfully
+          setShowSuccess(true);
+        } else {
+          // Some files failed to upload
+          setErrors({
+            ...newErrors,
+            files: "Một số file không thể tải lên. Vui lòng thử lại.",
+          });
+        }
+      } catch (error) {
+        console.error("Error uploading files:", error);
+        setErrors({
+          ...newErrors,
+          files: "Có lỗi xảy ra khi tải file lên. Vui lòng thử lại.",
+        });
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -214,14 +247,27 @@ const OrderDialog = ({ open, onClose, shop }) => {
           <button
             onClick={onClose}
             className="border border-gray-400 rounded-lg py-1 px-4 cursor-pointer hover:bg-gray-100"
+            disabled={loading}
           >
             Hủy
           </button>
           <button
-            className="bg-blue-700 text-white rounded-lg py-1 px-4 cursor-pointer hover:bg-blue-800"
+            className={`flex items-center gap-2 rounded-lg py-1 px-4 cursor-pointer ${
+              loading
+                ? "bg-blue-400 cursor-not-allowed"
+                : "bg-blue-700 hover:bg-blue-800"
+            } text-white`}
             onClick={handleSubmit}
+            disabled={loading}
           >
-            Đặt in
+            {loading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Đang tải lên...
+              </>
+            ) : (
+              "Đặt in"
+            )}
           </button>
         </div>
       </div>
