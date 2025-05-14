@@ -12,3 +12,8 @@ yarn install
 
 
 yarn dev
+
+
+chạy be:
+
+vào ./BE đọc readme
