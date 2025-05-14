@@ -64,7 +64,7 @@ const Map = ({ shops }) => {
 
   return (
     <div className="w-full lg:w-2/3 z-0 h-[300px] md:h-[400px] lg:h-[calc(100vh)] rounded-lg overflow-hidden">
-      <MapContainer center={currentPosition} zoom={16} className="w-full h-full">
+      <MapContainer center={currentPosition} zoom={20} className="w-full h-full">
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
