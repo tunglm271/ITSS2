@@ -32,30 +32,19 @@ const Map = ({ shops }) => {
     }
   }, []);
 
-
-  const createShopIcon = (name) => {
+  const createShopIcon = () => {
     return new DivIcon({
       html: `
         <div style="
           display: flex;
           align-items: center;
-          gap: 6px;
+          justify-content: center;
         ">
           <img 
             src="/shop_40505.png" 
             alt="Shop" 
             style="width: 32px; height: 32px;" 
           />
-          <span style="
-            background-color: white;
-            color: #000;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-            white-space: nowrap;
-          ">${name}</span>
         </div>
       `,
       className: "",
@@ -73,13 +62,16 @@ const Map = ({ shops }) => {
           <Popup>Vị trí của bạn</Popup>
         </Marker>
 
-        { shops && shops.map((marker) => (
-          <Marker
-            key={marker.id}
-            position={[marker.latitude, marker.longitude]}
-            icon={createShopIcon(marker.name)}
-          />
-        ))}
+        {shops &&
+          shops.map((marker) => (
+            <Marker
+              key={marker.id}
+              position={[marker.latitude, marker.longitude]}
+              icon={createShopIcon()}
+            >
+              <Popup>{marker.name}</Popup>
+            </Marker>
+          ))}
       </MapContainer>
     </div>
   );
