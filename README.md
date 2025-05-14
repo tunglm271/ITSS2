@@ -1,6 +1,6 @@
 # ITSS2
 
-![](./assets/printhub.jpg)
+![](./assets/_printhub.jpg)
 
 chạy fe:
 
