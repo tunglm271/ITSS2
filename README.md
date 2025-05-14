@@ -1,5 +1,7 @@
 # ITSS2
 
+()[./assets/printhub.jpg]
+
 chạy fe:
 
 
