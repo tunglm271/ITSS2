@@ -20,7 +20,7 @@ export const shopsAPI = {
 export const ordersAPI = {
     create: (orderData) => api.post("/orders", orderData),
     getAll: () => api.get("/orders"),
-    getById: (id) => api.get(`/orders/${id}`),
+    getById: (id) => api.get(`/orders/${id}?_expand=shop`),
     updateStatus: (id, status) => api.put(`/orders/${id}`, { status }),
 };
 

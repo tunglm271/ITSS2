@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "user1",
       "email": "user1@example.com",
       "password": "hashed_password_1",
@@ -13,7 +13,7 @@
   ],
   "shops": [
     {
-      "id": 1,
+      "id": "1",
       "name": "In ấn, Photocopy - In Bách Khoa",
       "address": "38 Ngõ 30 P. Tạ Quang Bửu, Bách Khoa, Hai Bà Trưng, Hà Nội",
       "phone": "0925354666",
@@ -22,7 +22,7 @@
       "reviewCount": 156,
       "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqYC26zDZoSOiARW0q1aMxFd3bq6_gzmi6AFL8Ttb8zv3K9WW2jBYkm-ACRrBZJFsDLPlwci0dqos6dZviDosLrNSPRMEg2-pD94b_xsrLNG5J0b_7AL8Hpi5RB06vud9N--xEu=w426-h240-k-no",
       "openTime": "08:00 - 18:30 (Cả tuần)",
-      "latitude": 21.006839109075784, 
+      "latitude": 21.006839109075784,
       "longitude": 105.84563420500504,
       "services": [
         {
@@ -41,7 +41,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Photocopy giá rẻ Anh Tuấn",
       "address": "8 Ngõ 40 P. Tạ Quang Bửu, Bách Khoa, Hai Bà Trưng, Hà Nội",
       "phone": "0947695085",
@@ -50,7 +50,7 @@
       "reviewCount": 98,
       "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npbphsuYbnExvSDHMn5ZPYjkUsiZKeIadXUjs3zaQL7zkRgd0l8xIOtcEkOBaa-w6AjDJalbdawsE7IO_lb2Fu3gL6JETsMD3YmWtM0thJkD27J1uHz38aSmfjFotDULJXsWeTweUP9vzw=w408-h306-k-no",
       "openTime": "00:00 - 23:59 (Thứ 2 - Chủ nhật)",
-      "latitude": 21.003994374375186, 
+      "latitude": 21.003994374375186,
       "longitude": 105.84664476724863,
       "services": [
         {
@@ -69,7 +69,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Photo Tuấn Thủy",
       "address": "36a Ng. 30 P. Tạ Quang Bửu, Bách Khoa, Hai Bà Trưng, Hà Nội",
       "phone": "0789123888",
@@ -78,7 +78,7 @@
       "reviewCount": 87,
       "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nq8tgjwt8LHCacKihqvB8wUGnv64HkVwWpvUObrim0PM7Mg-lhwcokpxj724uZz2q0K7IZVlZ-3EJ-6G_ujP_US8t3INZbTf67fdhZBqTh7zFcQDxbtUAly8Fdip9irPhrTpVUN=s1360-w1360-h1020-rw",
       "openTime": "08:00 - 22:00 (Cả tuần)",
-      "latitude": 21.00724561935323,  
+      "latitude": 21.00724561935323,
       "longitude": 105.8458727002708,
       "services": [
         {
@@ -97,7 +97,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "In Nhanh Hoàng Minh",
       "address": "55 P. Tạ Quang Bửu, Bách Khoa, Hai Bà Trưng, Hà Nội",
       "phone": "0969060756",
@@ -106,7 +106,7 @@
       "reviewCount": 112,
       "image": "https://lh3.googleusercontent.com/p/AF1QipPpHf--JSbGdTewpxBMuakklBd2B4vXpsIKKnn6=w408-h278-k-no",
       "openTime": "08:00 - 20:00 (Cả tuần)",
-      "latitude": 21.001095825293252, 
+      "latitude": 21.001095825293252,
       "longitude": 105.8502071498263,
       "services": [
         {
@@ -125,7 +125,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Photocopy Trung Dũng",
       "address": "Số 4 Ngõ 40 P. Tạ Quang Bửu, Bách Khoa, Hai Bà Trưng, Hà Nội",
       "phone": "0834587934",
@@ -135,7 +135,7 @@
       "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npqmY4dllHwVf7EOVkredSwTMdrWVmgfP0HuyyqxQRZqJMJjqZ2GaZAFwCj6sy14Wl8nYoxyfcGK7UHI1ZUrdvyXkB5vt9O7o4Cpu7OfQOtv---HMsAYvjQpf1hyGJr_3BQCR0=w426-h240-k-no",
       "openTime": "08:00 - 21:00 (Cả tuần)",
       "latitude": 21.004000482734646,
-      "longitude":  105.84660226108709,
+      "longitude": 105.84660226108709,
       "services": [
         {
           "id": 1,
@@ -153,7 +153,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "in màu, photocopy ở Hà Nội - In Hoa Hồng",
       "address": "Số 34, Ngõ 167, Giải Phóng, 139 Lê Thanh Nghị, Đồng Tâm, Hai Bà Trưng, Hà Nội",
       "phone": "0948727879",
@@ -162,7 +162,7 @@
       "reviewCount": 65,
       "image": "https://lh3.googleusercontent.com/p/AF1QipOTs8j9D6aL6guj60rZBhhw8evdlor1ZUu1TOLn=w408-h301-k-no",
       "openTime": "07:30 - 22:00 (Thứ 2 - Thứ 7)",
-      "latitude": 21.001904567410154, 
+      "latitude": 21.001904567410154,
       "longitude": 105.8420068148749,
       "services": [
         {
@@ -181,7 +181,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Tiệm Photocopy Thượng Sơn Pro",
       "address": "75 P. Trần Đại Nghĩa, Bách Khoa, Hai Bà Trưng, Hà Nội",
       "phone": "0869115168",
@@ -190,7 +190,7 @@
       "reviewCount": 89,
       "image": "https://maps.gstatic.com/tactile/pane/default_geocode-2x.png",
       "openTime": "08:00 - 22:00 (Cả tuần)",
-      "latitude": 21.00631158780613, 
+      "latitude": 21.00631158780613,
       "longitude": 105.84591211100908,
       "services": [
         {
@@ -209,7 +209,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "In Màu",
       "address": "KTX NEU, P. Trần Đại Nghĩa, Bách Khoa, Hai Bà Trưng, Hà Nội",
       "phone": "02466635333",
@@ -218,7 +218,7 @@
       "reviewCount": 134,
       "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4noGO8qiBu5XsszpMYbsbs6oXanWCah5G9xezQGhilz7PQlJ7x7t5CCrBgj7zSZ0ZNQ5ecQq--0uCKeXWdWcZTZJPkqb3a9f9Whc3lc71Kfqq9fK7dMao9UT5N8wn_aTcRd3ogvZSQ=w408-h543-k-no",
       "openTime": "07:00 - 20:00 (Cả tuần)",
-      "latitude": 21.004800036369378, 
+      "latitude": 21.004800036369378,
       "longitude": 105.84539479196953,
       "services": [
         {
@@ -237,7 +237,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Cơ Sở In Hồ Gươm Siêu Tốc",
       "address": "41 Đ. Giải Phóng, Phương Mai, Hai Bà Trưng, Hà Nội",
       "phone": "0567891029",
@@ -246,7 +246,7 @@
       "reviewCount": 98,
       "image": "https://www.google.com/maps/place/C%C6%A1+S%E1%BB%9F+In+H%E1%BB%93+G%C6%B0%C6%A1m+Si%C3%AAu+T%E1%BB%91c/@21.0048551,105.8414622,3a,75y,90t/data=!3m8!1e2!3m6!1sCIHM0ogKEICAgICOq5ro_gE!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAC9h4nqlgT5-BUoTUbQM6s9Wd3GkLfyynO34JDsZaCtqihkHMdmKyTYEAF18n1X3gZ-QnS25ox9mu3ThshXt3LNjpQVOttmPCVePRjWzhKSbAzuUezcdxWi79EplxBT9HRCH_QA-MZDpwQ%3Dw203-h360-k-no!7i1440!8i2560!4m11!1m2!2m1!1zY-G7rWEgaMOgbmcgaW4!3m7!1s0x3135ac7742abe1b5:0xdd2e4f5634a0867c!8m2!3d21.0048401!4d105.8416397!10e5!15sCg5j4butYSBow6BuZyBpbpIBCnByaW50X3Nob3CqATcQATIfEAEiGySvBs9xpdAZmVUeWnrnMXzoXI7cmTT75Dup3zISEAIiDmPhu61hIGjDoG5nIGlu4AEA!16s%2Fg%2F12vrcqp7r?entry=ttu&g_ep=EgoyMDI1MDUxMS4wIKXMDSoASAFQAw%3D%3D#",
       "openTime": "24/7",
-      "latitude": 21.00544105316884, 
+      "latitude": 21.00544105316884,
       "longitude": 105.84185428266436,
       "services": [
         {
@@ -265,7 +265,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 10,
+      "id": "10",
       "name": "IN NHANH BẢO THƯƠNG, in thiệp cưới, đề can, scan photo in màu a0, a1, a2, a3, a4",
       "address": "90 P. Trần Đại Nghĩa, Đồng Tâm, Hai Bà Trưng, Hà Nội",
       "phone": "0384762789",
@@ -274,7 +274,7 @@
       "reviewCount": 167,
       "image": "https://lh3.googleusercontent.com/p/AF1QipPVmYUQz0-B4wIzuYqLjTsRq8sBW3Np3Id5jC1g=w408-h544-k-no",
       "openTime": "06:30 - 22:00 (Cả tuần)",
-      "latitude": 20.99864763737294, 
+      "latitude": 20.99864763737294,
       "longitude": 105.84573745075,
       "services": [
         {
@@ -293,7 +293,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 11,
+      "id": "11",
       "name": "Dịch Vụ In - Photo Dũng Việt",
       "address": "36 P. Trần Đại Nghĩa, Đồng Tâm, Hai Bà Trưng, Hà Nội",
       "phone": "02436285583",
@@ -302,7 +302,7 @@
       "reviewCount": 78,
       "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nr3HQQkbImaLi5rWHsUDopsE6VAFZc-gJZiQFC5Asbu6NCTIzDpusiAo5QbB5J9cVkxIIkbi_Ym2506Gan7XAexWdN2mMXO8P1MdIbb9jc8fjDAacZUbE5JIk7rpXfjAlgl6kCZpQ=w408-h544-k-no",
       "openTime": "24/7",
-      "latitude": 21.00273424076327, 
+      "latitude": 21.00273424076327,
       "longitude": 105.84462165185451,
       "services": [
         {
@@ -321,7 +321,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 12,
+      "id": "12",
       "name": "Photocopy Quang Vinh",
       "address": "207 P. Trần Đại Nghĩa, Đồng Tâm, Hai Bà Trưng, Hà Nội",
       "phone": "0329074596",
@@ -330,7 +330,7 @@
       "reviewCount": 92,
       "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4no7zuRgqf7wV4vA3C0zzNTstLPhYTDWaUPESrdlkU65p7-Fh8RbwJP9bkpRK5OCWgJYo-aoyu80qQ5s8Bwjygh86LwfqCsfYyHGA77GoNfEdcToQNtI5LJWojlK-NbwAmZoTJn6CA=w408-h306-k-no",
       "openTime": "06:15 - 23:00 (Cả tuần)",
-      "latitude": 20.998988191928994, 
+      "latitude": 20.998988191928994,
       "longitude": 105.84618806184241,
       "services": [
         {
@@ -349,7 +349,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 13,
+      "id": "13",
       "name": "Cửa hàng Photo copy 29 Phố Lê Thanh Nghị, phường Bách khoa, quận Hai bà Trưng. Hà Nội",
       "address": "29 Phố Lê Thanh Nghị, phường Bách khoa, quận Hai bà Trưng. Hà Nội",
       "phone": "024 3869 9012",
@@ -358,7 +358,7 @@
       "reviewCount": 189,
       "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
       "openTime": "06:00 - 22:00 (Thứ 2 - Thứ 7)",
-      "latitude": 21.003315170396586, 
+      "latitude": 21.003315170396586,
       "longitude": 105.84970711989737,
       "services": [
         {
@@ -377,7 +377,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 14,
+      "id": "14",
       "name": "Công Ty In Phú Hà",
       "address": "193 P. Bạch Mai, Thanh Nhàn, Hai Bà Trưng, Hà Nội",
       "phone": "02438631674",
@@ -386,7 +386,7 @@
       "reviewCount": 156,
       "image": "https://lh3.googleusercontent.com/gps-cs-s/AC9h4np41MDz0SiC5n6fFOVWhHviQL8Fx4iut-Vj75Ho075tM4kct13IsXEbGoO1NpQbMTNCpGZygUuLxy19X1Ljn9vh7mvotLQZt3KoO_d-gVWgrjcwrZrevfVPtzir-euzNoLsqG_EUQ=w408-h544-k-no",
       "openTime": "08:00 - 17:30 (Thứ 2 - Thứ 7)",
-      "latitude": 21.00501788215587, 
+      "latitude": 21.00501788215587,
       "longitude": 105.8509731224903,
       "services": [
         {
@@ -405,7 +405,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 15,
+      "id": "15",
       "name": "PHOTOCOPY - IN ẤN THU HÀ",
       "address": "97 Đ. Trương Định, Trương Định, Hai Bà Trưng, Hà Nội",
       "phone": "0865366882",
@@ -433,7 +433,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 16,
+      "id": "16",
       "name": "Công ty In Hồ Phúc",
       "address": "45 P. Lương Định Của, Phương Đình, Đống Đa, Hà Nội",
       "phone": "0936474716",
@@ -442,7 +442,7 @@
       "reviewCount": 123,
       "image": "https://lh3.googleusercontent.com/p/AF1QipOl7d4yFXZTiaJVIgqLQMHG6_kqvAPlKeU1YVG8=w630-h240-k-no",
       "openTime": "07:30 - 19:00 (Cả tuần)",
-      "latitude": 21.00534847332041, 
+      "latitude": 21.00534847332041,
       "longitude": 105.83591294509196,
       "services": [
         {
@@ -461,7 +461,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 17,
+      "id": "17",
       "name": "Tiệm Photocopy Thế Mạnh",
       "address": "3E1 P. Tạ Quang Bửu, Bách Khoa, Hai Bà Trưng, Hà Nội",
       "phone": "0989128779",
@@ -470,7 +470,7 @@
       "reviewCount": 87,
       "image": "https://maps.gstatic.com/tactile/pane/default_geocode-2x.png",
       "openTime": "08:00 - 21:00 (Thứ 2 - Chủ nhật)",
-      "latitude": 21.002848634987686, 
+      "latitude": 21.002848634987686,
       "longitude": 105.85018678261895,
       "services": [
         {
@@ -489,7 +489,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 18,
+      "id": "18",
       "name": "Công Ty TNHH Đầu Tư Thương Mại Và Dịch Vụ Nam Huế",
       "address": "109 P. Trần Đại Nghĩa, Bách Khoa, Hai Bà Trưng, Hà Nội",
       "phone": "0977051986",
@@ -498,7 +498,7 @@
       "reviewCount": 95,
       "image": "https://lh3.googleusercontent.com/p/AF1QipMs_6gdY5IdIYTX8DlpXUuC3hEH8Z-doe5KtdYr=w408-h725-k-no",
       "openTime": "08:00 - 21:00 (Thứ 2 - Chủ nhật)",
-      "latitude": 21.004491256503822, 
+      "latitude": 21.004491256503822,
       "longitude": 105.84465070348368,
       "services": [
         {
@@ -517,7 +517,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 19,
+      "id": "19",
       "name": "Công ty In Thành Đạt",
       "address": "33 Đ. Giải Phóng, Đồng Tâm, Hai Bà Trưng, Hà Nội",
       "phone": "0827333537",
@@ -526,7 +526,7 @@
       "reviewCount": 76,
       "image": "https://lh3.googleusercontent.com/p/AF1QipPYjhPmq6QyA5ymmsdBCepk3iqsM1u2ovLq-GhD=w408-h272-k-no",
       "openTime": "08:00 - 20:00 (Thứ 2 - Chủ nhật)",
-      "latitude": 21.00497202035641, 
+      "latitude": 21.00497202035641,
       "longitude": 105.84190412158715,
       "services": [
         {
@@ -545,7 +545,7 @@
       "createdAt": "2024-03-15T08:00:00.000Z"
     },
     {
-      "id": 20,
+      "id": "20",
       "name": "Dịch Vụ Photocopy - In Thanh Bình",
       "address": "58 P. Trần Đại Nghĩa, Bách Khoa, Hai Bà Trưng, Hà Nội",
       "phone": "02438684822",
@@ -554,7 +554,7 @@
       "reviewCount": 68,
       "image": "https://maps.gstatic.com/tactile/pane/default_geocode-2x.png",
       "openTime": "08:00 - 20:00 (Thứ 2 - Chủ nhật)",
-      "latitude": 21.005192406912496, 
+      "latitude": 21.005192406912496,
       "longitude": 105.84523354506814,
       "services": [
         {
@@ -593,11 +593,139 @@
       "pickupTime": "2024-03-16T14:00:00.000Z",
       "note": "In 2 mặt",
       "createdAt": "2024-03-15T10:00:00.000Z"
+    },
+    {
+      "id": "55ab",
+      "userId": 1,
+      "shopId": "16",
+      "files": [
+        {
+          "name": "Business_Case_-_GR24_sqah5z.docx",
+          "url": "http://res.cloudinary.com/dhmbivnr2/raw/upload/v1747485739/Business_Case_-_GR24_sqah5z.docx",
+          "quantity": 1,
+          "size": "A4",
+          "format": "Màu"
+        }
+      ],
+      "pickupTime": "2025-05-23T19:45",
+      "note": "asdfasdf"
+    },
+    {
+      "id": "c846",
+      "userId": 1,
+      "shopId": "16",
+      "files": [
+        {
+          "name": "Quality_Management_Plan_-_Gr21_jobv4y.docx",
+          "url": "http://res.cloudinary.com/dhmbivnr2/raw/upload/v1747485886/Quality_Management_Plan_-_Gr21_jobv4y.docx",
+          "quantity": "3",
+          "size": "A5",
+          "format": "Đen trắng"
+        }
+      ],
+      "pickupTime": "2025-05-29T22:47",
+      "note": "asdfsadf"
+    },
+    {
+      "id": "3f01",
+      "userId": 1,
+      "shopId": "16",
+      "files": [
+        {
+          "name": "Business_Case_-_GR24_jhapqk.docx",
+          "url": "http://res.cloudinary.com/dhmbivnr2/raw/upload/v1747486075/Business_Case_-_GR24_jhapqk.docx",
+          "quantity": 1,
+          "size": "A4",
+          "format": "Màu"
+        }
+      ],
+      "pickupTime": "2025-05-22T19:51",
+      "note": "fsdfsdf"
+    },
+    {
+      "id": "9db6",
+      "userId": 1,
+      "shopId": 1,
+      "files": [
+        {
+          "name": "Business_Case_-_GR24_j0ncy1.docx",
+          "url": "http://res.cloudinary.com/dhmbivnr2/raw/upload/v1747486358/Business_Case_-_GR24_j0ncy1.docx",
+          "quantity": 1,
+          "size": "A4",
+          "format": "Màu"
+        }
+      ],
+      "pickupTime": "2025-05-14T19:55",
+      "note": ""
+    },
+    {
+      "id": "ace0",
+      "userId": 1,
+      "shopId": 1,
+      "files": [
+        {
+          "name": "Business_Case_-_GR24_cpupbw.docx",
+          "url": "http://res.cloudinary.com/dhmbivnr2/raw/upload/v1747486392/Business_Case_-_GR24_cpupbw.docx",
+          "quantity": 1,
+          "size": "A4",
+          "format": "Màu"
+        }
+      ],
+      "pickupTime": "2025-05-23T19:57",
+      "note": "asdfasdf"
+    },
+    {
+      "id": "18ce",
+      "userId": 1,
+      "shopId": 4,
+      "files": [
+        {
+          "name": "Business_Case_-_GR24_h8bdos.docx",
+          "url": "http://res.cloudinary.com/dhmbivnr2/raw/upload/v1747487038/Business_Case_-_GR24_h8bdos.docx",
+          "quantity": 1,
+          "size": "A4",
+          "format": "Màu"
+        }
+      ],
+      "pickupTime": "2025-05-22T23:03",
+      "note": "ádfsadf"
+    },
+    {
+      "id": "7233",
+      "userId": 1,
+      "shopId": "1",
+      "files": [
+        {
+          "name": "Business_Case_-_GR24_krzbus.docx",
+          "url": "http://res.cloudinary.com/dhmbivnr2/raw/upload/v1747487448/Business_Case_-_GR24_krzbus.docx",
+          "quantity": 1,
+          "size": "A4",
+          "format": "Màu"
+        }
+      ],
+      "pickupTime": "2025-05-23T20:12",
+      "note": "ádfasdf"
+    },
+    {
+      "id": "1cae",
+      "userId": 1,
+      "shopId": "1",
+      "files": [
+        {
+          "name": "Business_Case_-_GR24_pepshx.docx",
+          "url": "http://res.cloudinary.com/dhmbivnr2/raw/upload/v1747487898/Business_Case_-_GR24_pepshx.docx",
+          "quantity": 1,
+          "size": "A4",
+          "format": "Màu"
+        }
+      ],
+      "pickupTime": "2025-05-28T20:22",
+      "note": "ádfasdf"
     }
   ],
   "ratings": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 1,
       "shopId": 1,
       "orderId": "ORD123456",

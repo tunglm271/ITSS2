@@ -2,6 +2,7 @@ import { X, Trash2, Loader2 } from "lucide-react";
 import React, { useRef, useState } from "react";
 import OrderSuccessDialog from "./OrderSuccessDialog";
 import { uploadFile } from "../../services/cloudinary";
+import { ordersAPI } from "../../services/api";
 
 const defaultSizes = ["A4", "A5", "A3"];
 const defaultFormats = ["Màu", "Đen trắng"];
@@ -14,6 +15,7 @@ const OrderDialog = ({ open, onClose, shop }) => {
   const [errors, setErrors] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [orderId, setOrderId] = useState(null);
 
   const fileInputRef = useRef(null);
 
@@ -68,6 +70,23 @@ const OrderDialog = ({ open, onClose, shop }) => {
 
         if (successfulUploads.length === fileList.length) {
           // All files uploaded successfully
+          const orderFiles = fileList.map((item, index) => ({
+            name: successfulUploads[index].display_name,
+            url: successfulUploads[index].url,
+            quantity: item.quantity,
+            size: item.size,
+            format: item.format,
+          }));
+
+          const response = await ordersAPI.create({
+            userId: 1,
+            shopId: shop.id,
+            files: orderFiles,
+            pickupTime: `${date}T${time}`,
+            note,
+          });
+
+          setOrderId(response.data.id);
           setShowSuccess(true);
         } else {
           // Some files failed to upload
@@ -97,7 +116,7 @@ const OrderDialog = ({ open, onClose, shop }) => {
           onClose();
         }}
         order={{
-          id: "#ORD123456",
+          id: orderId || "#ORD123456",
           date,
           time,
           shopName: shop?.name || "",
@@ -113,7 +132,7 @@ const OrderDialog = ({ open, onClose, shop }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl drop-shadow-xl p-6 w-full max-w-lg relative"
+        className="bg-white rounded-xl drop-shadow-xl p-6 w-full max-w-xl relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button

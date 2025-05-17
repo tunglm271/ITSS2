@@ -27,26 +27,26 @@ const OrderSuccessDialog = ({ open, onClose, order }) => {
           <div className="bg-gray-50 rounded-xl p-4 w-full mb-6">
             <div className="flex justify-between mb-2 text-sm">
               <span className="text-gray-500">Mã đơn hàng:</span>
-              <span className="font-bold">{order.id}</span>
+              <span className="font-bold max-w-3/5 text-right">#{order.id}</span>
             </div>
             <div className="flex justify-between mb-2 text-sm">
               <span className="text-gray-500">Thời gian nhận:</span>
-              <span className="font-semibold">
-                {order.time} –{" "}
+              <span className="font-semibold max-w-3/5 text-right">
+                {order.time} {" "}
                 {order.date && new Date(order.date).toLocaleDateString("vi-VN")}
               </span>
             </div>
             <div className="flex justify-between mb-2 text-sm">
               <span className="text-gray-500">Cửa hàng:</span>
-              <span className="font-semibold">{order.shopName}</span>
+              <span className="font-semibold max-w-3/5 text-right">{order.shopName}</span>
             </div>
             <div className="flex justify-between text-sm">
               <span className="text-gray-500">Địa chỉ:</span>
-              <span className="font-semibold">{order.shopAddress}</span>
+              <span className="font-semibold max-w-3/5 text-right">{order.shopAddress}</span>
             </div>
           </div>
           <div className="flex w-full gap-2 mt-2">
-            <button className="flex-1 border border-gray-300 rounded-lg py-2 flex items-center justify-center gap-2 text-gray-700 hover:bg-gray-100"
+            <button className="flex-1 border border-gray-300 rounded-lg py-2 flex cursor-pointer items-center justify-center gap-2 text-gray-700 hover:bg-gray-100"
             onClick={(e) => {
               e.stopPropagation();
               setShowReceipt(true);
@@ -55,7 +55,7 @@ const OrderSuccessDialog = ({ open, onClose, order }) => {
               Lưu hóa đơn
             </button>
             <button
-              className="flex-1 bg-green-500 text-white rounded-lg py-2 flex items-center justify-center gap-2 hover:bg-green-600"
+              className="flex-1 bg-green-500 text-white rounded-lg py-2 flex cursor-pointer items-center justify-center gap-2 hover:bg-green-600"
               onClick={onClose}
             >
               <CheckCircle className="w-5 h-5" />
@@ -68,7 +68,7 @@ const OrderSuccessDialog = ({ open, onClose, order }) => {
       <ReceiptDetailsDialog 
         open={showReceipt}
         onClose={() => setShowReceipt(false)}
-        order={order}
+        orderId={order.id}
       />
       
     </>
