@@ -25,7 +25,6 @@ const Home = () => {
   useEffect(() => {
     api.get("/shops").then((response) => {
       setShops(response.data);
-      console.log(response.data);
     });
   }, []);
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000";
+const API_URL = "https://itss-2-be-sigma.vercel.app";
 
 const api = axios.create({
     baseURL: API_URL,
