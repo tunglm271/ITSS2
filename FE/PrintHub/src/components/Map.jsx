@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -33,8 +33,12 @@ const MapCenter = ({ center }) => {
 };
 
 const DEFAULT_POSITION = [21.004424, 105.846569];
+const DISTANCE_CACHE_KEY = 'printhub_distance_cache';
+const POSITION_CACHE_KEY = 'printhub_user_position';
+const CACHE_EXPIRATION = 24 * 60 * 60 * 1000;
+const MAX_POSITION_DIFF = 100;
 
-const Map = ({ shops = [], onRouteCalculated }) => {
+const Map = forwardRef(({ shops = [], onRouteCalculated }, ref) => {
   const [loading, setLoading] = useState(true);
   const [currentPosition, setCurrentPosition] = useState(null);
   const [route, setRoute] = useState(null);
@@ -43,9 +47,57 @@ const Map = ({ shops = [], onRouteCalculated }) => {
   const [maneuvers, setManeuvers] = useState([]);
   const [calculatingDistances, setCalculatingDistances] = useState(false);
   const [processedShopIds, setProcessedShopIds] = useState(new Set());
+  const [failedShopIds, setFailedShopIds] = useState(new Set());
+  const retryTimeoutRef = useRef(null);
+  const [positionChanged, setPositionChanged] = useState(false);
+  const [mapKey, setMapKey] = useState(Date.now());
+
+  useImperativeHandle(ref, () => ({
+    refreshDistances: () => {
+      localStorage.removeItem(DISTANCE_CACHE_KEY);
+      setProcessedShopIds(new Set());
+      setFailedShopIds(new Set());
+      setPositionChanged(true);
+      setMapKey(Date.now()); 
+      
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            const newPosition = [latitude, longitude];
+            setCurrentPosition(newPosition);
+            localStorage.setItem(POSITION_CACHE_KEY, JSON.stringify({
+              position: newPosition,
+              timestamp: Date.now()
+            }));
+          },
+          (error) => {
+            console.error("Error refreshing position:", error);
+          }
+        );
+      }
+    }
+  }));
 
   useEffect(() => {
     setLoading(true);
+    
+    try {
+      const cachedPositionData = localStorage.getItem(POSITION_CACHE_KEY);
+      if (cachedPositionData) {
+        const { position, timestamp } = JSON.parse(cachedPositionData);
+        if (Date.now() - timestamp < CACHE_EXPIRATION) {
+          console.log("Using cached position", position);
+          setCurrentPosition(position);
+          setPositionChanged(false);
+          setLoading(false);
+          return;
+        }
+      }
+    } catch (error) {
+      console.error("Error reading cached position:", error);
+    }
+    
     const getLocation = async () => {
       try {
         if (navigator.geolocation) {
@@ -66,72 +118,226 @@ const Map = ({ shops = [], onRouteCalculated }) => {
             ]);
             
             const { latitude, longitude } = position.coords;
-            setCurrentPosition([latitude, longitude]);
+            const newPosition = [latitude, longitude];
+            
+            try {
+              const cachedPositionData = localStorage.getItem(POSITION_CACHE_KEY);
+              if (cachedPositionData) {
+                const { position: oldPosition } = JSON.parse(cachedPositionData);
+                if (!isNearby(oldPosition, newPosition)) {
+                  setPositionChanged(true);
+                  localStorage.removeItem(DISTANCE_CACHE_KEY);
+                }
+              } else {
+                setPositionChanged(true);
+              }
+            } catch (e) {
+              console.error("Error comparing positions:", e);
+            }
+            
+            try {
+              localStorage.setItem(POSITION_CACHE_KEY, JSON.stringify({
+                position: newPosition,
+                timestamp: Date.now()
+              }));
+            } catch (e) {
+              console.error("Error saving position to cache:", e);
+            }
+            
+            setCurrentPosition(newPosition);
             setLoading(false);
           } catch (error) {
             console.error("Error getting location:", error);
             setCurrentPosition(DEFAULT_POSITION);
+            setPositionChanged(true);
             setLoading(false);
           }
         } else {
           console.error("Geolocation is not supported by this browser.");
           setCurrentPosition(DEFAULT_POSITION);
+          setPositionChanged(true);
           setLoading(false);
         }
       } catch (error) {
         console.error("Unexpected error:", error);
         setCurrentPosition(DEFAULT_POSITION);
+        setPositionChanged(true);
         setLoading(false);
       }
     };
 
     getLocation();
-  }, []);
+  }, [mapKey]);
+
+  const isNearby = (pos1, pos2) => {
+    if (!pos1 || !pos2) return false;
+    
+    const lat1 = pos1[0];
+    const lon1 = pos1[1];
+    const lat2 = pos2[0];
+    const lon2 = pos2[1];
+    
+    const R = 6371000; 
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const distance = R * c;
+    
+    return distance < MAX_POSITION_DIFF;
+  };
+
+  useEffect(() => {
+    if (!currentPosition || loading) return;
+    
+    if (!positionChanged) {
+      try {
+        const cachedData = localStorage.getItem(DISTANCE_CACHE_KEY);
+        if (cachedData) {
+          const { distances, timestamp } = JSON.parse(cachedData);
+          
+          if (Date.now() - timestamp < CACHE_EXPIRATION) {
+            console.log("Using cached distances:", Object.keys(distances).length);
+            
+            Object.entries(distances).forEach(([shopId, routeInfo]) => {
+              if (onRouteCalculated && routeInfo) {
+                onRouteCalculated(parseInt(shopId, 10), routeInfo);
+              }
+              
+              setProcessedShopIds(prev => {
+                const newSet = new Set(prev);
+                newSet.add(parseInt(shopId, 10));
+                return newSet;
+              });
+            });
+          }
+        }
+      } catch (e) {
+        console.error("Error loading cached distances:", e);
+      }
+    }
+  }, [currentPosition, loading, onRouteCalculated, positionChanged]);
 
   useEffect(() => {
     const calculateAllDistances = async () => {
-      if (currentPosition && shops.length > 0 && !loading && !calculatingDistances) {
-        setCalculatingDistances(true);
+      if (!currentPosition || loading || calculatingDistances) return;
+      
+      setCalculatingDistances(true);
+      
+      const unprocessedShops = shops.filter(shop => 
+        shop?.latitude && 
+        shop?.longitude && 
+        !processedShopIds.has(shop.id) &&
+        !failedShopIds.has(shop.id)
+      );
+      
+      if (unprocessedShops.length === 0) {
+        setCalculatingDistances(false);
         
-        // Filter shops that haven't been processed yet
-        const unprocessedShops = shops.filter(shop => 
-          shop?.latitude && shop?.longitude && !processedShopIds.has(shop.id)
-        );
-        
-        if (unprocessedShops.length === 0) {
-          setCalculatingDistances(false);
-          return;
+        if (failedShopIds.size > 0 && !retryTimeoutRef.current) {
+          retryTimeoutRef.current = setTimeout(() => {
+            setFailedShopIds(new Set());
+            retryTimeoutRef.current = null;
+          }, 5000);
         }
+        return;
+      }
+      
+      const BATCH_SIZE = 2;
+      let successfulDistances = {};
+      let newFailedIds = new Set();
+      let newProcessedIds = new Set(processedShopIds);
+      
+      for (let i = 0; i < unprocessedShops.length; i += BATCH_SIZE) {
+        const batch = unprocessedShops.slice(i, i + BATCH_SIZE);
         
-        const BATCH_SIZE = 2;
-        const newProcessedIds = new Set(processedShopIds);
-        
-        for (let i = 0; i < unprocessedShops.length; i += BATCH_SIZE) {
-          const batch = unprocessedShops.slice(i, i + BATCH_SIZE);
-          
-          await Promise.all(
+        try {
+          const results = await Promise.all(
             batch.map(async (shop) => {
-              await calculateDistance(
-                currentPosition, 
-                [shop.latitude, shop.longitude], 
-                shop.id
-              );
-              newProcessedIds.add(shop.id);
+              try {
+                const routeInfo = await calculateDistance(
+                  currentPosition, 
+                  [shop.latitude, shop.longitude], 
+                  shop.id
+                );
+                
+                if (routeInfo) {
+                  return { success: true, shopId: shop.id, routeInfo };
+                } else {
+                  return { success: false, shopId: shop.id };
+                }
+              } catch (error) {
+                console.error(`Error calculating distance for shop ${shop.id}:`, error);
+                return { success: false, shopId: shop.id };
+              }
             })
           );
           
-          if (i + BATCH_SIZE < unprocessedShops.length) {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-          }
+          results.forEach(result => {
+            if (result.success) {
+              newProcessedIds.add(result.shopId);
+              successfulDistances[result.shopId] = result.routeInfo;
+            } else {
+              newFailedIds.add(result.shopId);
+            }
+          });
+          
+        } catch (error) {
+          console.error("Batch processing error:", error);
+          batch.forEach(shop => newFailedIds.add(shop.id));
         }
         
-        setProcessedShopIds(newProcessedIds);
-        setCalculatingDistances(false);
+        if (i + BATCH_SIZE < unprocessedShops.length) {
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
       }
+      
+      setProcessedShopIds(newProcessedIds);
+      setFailedShopIds(new Set([...failedShopIds, ...newFailedIds]));
+      
+      if (Object.keys(successfulDistances).length > 0) {
+        try {
+          const cachedData = localStorage.getItem(DISTANCE_CACHE_KEY);
+          let existingDistances = {};
+          
+          if (cachedData) {
+            const parsed = JSON.parse(cachedData);
+            existingDistances = parsed.distances || {};
+          }
+          
+          const updatedDistances = { ...existingDistances, ...successfulDistances };
+          
+          localStorage.setItem(DISTANCE_CACHE_KEY, JSON.stringify({
+            distances: updatedDistances,
+            timestamp: Date.now()
+          }));
+        } catch (e) {
+          console.error("Error saving distances to cache:", e);
+        }
+      }
+      
+      setCalculatingDistances(false);
     };
     
     calculateAllDistances();
-  }, [shops, currentPosition, loading, calculatingDistances, processedShopIds]);
+    
+    return () => {
+      if (retryTimeoutRef.current) {
+        clearTimeout(retryTimeoutRef.current);
+      }
+    };
+  }, [
+    shops, 
+    currentPosition, 
+    loading, 
+    calculatingDistances, 
+    processedShopIds, 
+    failedShopIds, 
+    onRouteCalculated
+  ]);
 
   const createShopIcon = () => {
     return new DivIcon({
@@ -174,7 +380,7 @@ const Map = ({ shops = [], onRouteCalculated }) => {
         onRouteCalculated(shopId, routeInfoData);
       }
       
-      await new Promise(resolve => setTimeout(resolve, Math.random() * 300 + 100));
+      await new Promise(resolve => setTimeout(resolve, Math.random() * 200 + 100));
       
       return routeInfoData;
     } catch (error) {
@@ -211,6 +417,25 @@ const Map = ({ shops = [], onRouteCalculated }) => {
       
       if (onRouteCalculated) {
         onRouteCalculated(shopId, routeInfoData);
+      }
+      
+      try {
+        const cachedData = localStorage.getItem(DISTANCE_CACHE_KEY);
+        let existingDistances = {};
+        
+        if (cachedData) {
+          const parsed = JSON.parse(cachedData);
+          existingDistances = parsed.distances || {};
+        }
+        
+        existingDistances[shopId] = routeInfoData;
+        
+        localStorage.setItem(DISTANCE_CACHE_KEY, JSON.stringify({
+          distances: existingDistances,
+          timestamp: Date.now()
+        }));
+      } catch (e) {
+        console.error("Error updating cache with route:", e);
       }
     } catch (error) {
       console.error("Error fetching route:", error.message);
@@ -278,6 +503,6 @@ const Map = ({ shops = [], onRouteCalculated }) => {
       </MapContainer>
     </div>
   );
-};
+});
 
 export default Map;

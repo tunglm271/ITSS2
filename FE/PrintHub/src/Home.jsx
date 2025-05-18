@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { Filter as FilterIcon } from "lucide-react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { Filter as FilterIcon, RefreshCw } from "lucide-react";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
 import PrintShopCard from "./components/PrintShopCard";
@@ -18,6 +18,8 @@ const Home = () => {
   const [shopDistances, setShopDistances] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const mapRef = useRef(null);
 
   const filteredShops = useMemo(() => {
     if (!searchTerm.trim()) return shops;
@@ -100,13 +102,43 @@ const Home = () => {
     }
   }, []);
 
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true);
+    
+    setShopDistances({});
+    
+    localStorage.removeItem('printhub_distance_cache');
+    localStorage.removeItem('printhub_user_position');
+    
+    setTimeout(() => {
+      if (mapRef.current && mapRef.current.refreshDistances) {
+        mapRef.current.refreshDistances();
+      }
+      
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 1000);
+    }, 500);
+  }, []);
+
   return (
     <div className="w-screen min-h-screen bg-white pb-10">
       <Header onSearch={handleSearch} />
 
       {/* Filters */}
       <div className="container mx-auto px-4">
-        <Filter activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
+        <div className="flex flex-wrap justify-between items-center mb-4">
+          <Filter activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
+          
+          <button 
+            onClick={handleRefresh}
+            disabled={refreshing || loading}
+            className="flex items-center gap-1 text-blue-600 px-3 py-1 mt-2 md:mt-0 rounded border border-blue-200 hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <RefreshCw size={16} className={`${refreshing ? 'animate-spin' : ''}`} />
+            <span>Làm mới vị trí</span>
+          </button>
+        </div>
 
         {searchTerm && (
           <div className="mt-2 mb-3 text-gray-600">
@@ -128,6 +160,7 @@ const Home = () => {
             </div>
           ) : (
             <Map 
+              ref={mapRef}
               shops={sortedShops} 
               onRouteCalculated={updateShopDistance}
             />
