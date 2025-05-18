@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Filter as FilterIcon } from "lucide-react";
 import Header from "./components/Header";
 import Filter from "./components/Filter";
@@ -17,20 +17,16 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [shopDistances, setShopDistances] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
-  const [allShops, setAllShops] = useState([]); 
-  const [noResults, setNoResults] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const filteredShops = useMemo(() => {
     if (!searchTerm.trim()) return shops;
     
     const lowerSearchTerm = searchTerm.toLowerCase().trim();
-    const filtered = shops.filter(shop => 
+    return shops.filter(shop => 
       shop.name.toLowerCase().includes(lowerSearchTerm) || 
       shop.address.toLowerCase().includes(lowerSearchTerm)
     );
-
-    setNoResults(filtered.length === 0);
-    return filtered;
   }, [shops, searchTerm]);
 
   const sortedShops = useMemo(() => {
@@ -55,33 +51,54 @@ const Home = () => {
     return shopsWithDistance;
   }, [filteredShops, activeFilter, shopDistances]);
 
-  const totalPages = Math.ceil(sortedShops.length / SHOPS_PER_PAGE);
-  const paginatedShops = sortedShops.slice(
-    (currentPage - 1) * SHOPS_PER_PAGE,
-    currentPage * SHOPS_PER_PAGE
+  const totalPages = useMemo(() => 
+    Math.ceil(sortedShops.length / SHOPS_PER_PAGE),
+    [sortedShops.length]
+  );
+  
+  const paginatedShops = useMemo(() => 
+    sortedShops.slice(
+      (currentPage - 1) * SHOPS_PER_PAGE,
+      currentPage * SHOPS_PER_PAGE
+    ),
+    [sortedShops, currentPage]
   );
 
   useEffect(() => {
     setCurrentPage(1);
   }, [activeFilter, searchTerm]);
 
-  const handleSearch = (term) => {
+  const handleSearch = useCallback((term) => {
     setSearchTerm(term);
-  };
-
-  useEffect(() => {
-    api.get("/shops").then((response) => {
-      setShops(response.data);
-      setAllShops(response.data);
-    });
   }, []);
 
-  const updateShopDistance = (shopId, distance) => {
-    setShopDistances(prev => ({
-      ...prev,
-      [shopId]: distance
-    }));
-  };
+  useEffect(() => {
+    setLoading(true);
+    api.get("/shops")
+      .then((response) => {
+        setShops(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching shops:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  const updateShopDistance = useCallback((shopId, routeInfo) => {
+    if (routeInfo && routeInfo.distance) {
+      setShopDistances(prev => {
+        if (!prev[shopId] || prev[shopId] !== routeInfo.distance) {
+          return {
+            ...prev,
+            [shopId]: routeInfo.distance
+          };
+        }
+        return prev;
+      });
+    }
+  }, []);
 
   return (
     <div className="w-screen min-h-screen bg-white pb-10">
@@ -105,18 +122,24 @@ const Home = () => {
 
         {/* Map and List */}
         <div className="flex flex-col lg:flex-row gap-4 mt-4">
-          <Map 
-            shops={sortedShops} 
-            onRouteCalculated={(shopId, routeInfo) => {
-              if (routeInfo && routeInfo.distance) {
-                updateShopDistance(shopId, routeInfo.distance);
-              }
-            }}
-          />
+          {loading ? (
+            <div className="w-full lg:w-2/3 z-0 h-[300px] md:h-[400px] lg:h-[calc(100vh)] rounded-lg overflow-hidden flex items-center justify-center bg-gray-100">
+              <div className="text-gray-500">Đang tải dữ liệu...</div>
+            </div>
+          ) : (
+            <Map 
+              shops={sortedShops} 
+              onRouteCalculated={updateShopDistance}
+            />
+          )}
 
           {/* List of Print Shops */}
           <div className="w-full lg:w-1/3 space-y-4 mt-4 lg:mt-0">
-            {sortedShops.length > 0 ? (
+            {loading ? (
+              <div className="p-4 text-center text-gray-500 bg-white rounded-lg shadow border border-gray-100">
+                Đang tải dữ liệu cửa hàng...
+              </div>
+            ) : sortedShops.length > 0 ? (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
                   {paginatedShops.map((shop) => (

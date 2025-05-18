@@ -41,6 +41,8 @@ const Map = ({ shops = [], onRouteCalculated }) => {
   const [routeInfo, setRouteInfo] = useState(null);
   const [selectedShopId, setSelectedShopId] = useState(null);
   const [maneuvers, setManeuvers] = useState([]);
+  const [calculatingDistances, setCalculatingDistances] = useState(false);
+  const [processedShopIds, setProcessedShopIds] = useState(new Set());
 
   useEffect(() => {
     setLoading(true);
@@ -87,14 +89,49 @@ const Map = ({ shops = [], onRouteCalculated }) => {
   }, []);
 
   useEffect(() => {
-    if (currentPosition && shops.length > 0 && !loading) {
-      shops.forEach(shop => {
-        if (shop?.latitude && shop?.longitude) {
-          calculateDistance(currentPosition, [shop.latitude, shop.longitude], shop.id);
+    const calculateAllDistances = async () => {
+      if (currentPosition && shops.length > 0 && !loading && !calculatingDistances) {
+        setCalculatingDistances(true);
+        
+        // Filter shops that haven't been processed yet
+        const unprocessedShops = shops.filter(shop => 
+          shop?.latitude && shop?.longitude && !processedShopIds.has(shop.id)
+        );
+        
+        if (unprocessedShops.length === 0) {
+          setCalculatingDistances(false);
+          return;
         }
-      });
-    }
-  }, [shops, currentPosition, loading]);
+        
+        const BATCH_SIZE = 2;
+        const newProcessedIds = new Set(processedShopIds);
+        
+        for (let i = 0; i < unprocessedShops.length; i += BATCH_SIZE) {
+          const batch = unprocessedShops.slice(i, i + BATCH_SIZE);
+          
+          await Promise.all(
+            batch.map(async (shop) => {
+              await calculateDistance(
+                currentPosition, 
+                [shop.latitude, shop.longitude], 
+                shop.id
+              );
+              newProcessedIds.add(shop.id);
+            })
+          );
+          
+          if (i + BATCH_SIZE < unprocessedShops.length) {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
+        }
+        
+        setProcessedShopIds(newProcessedIds);
+        setCalculatingDistances(false);
+      }
+    };
+    
+    calculateAllDistances();
+  }, [shops, currentPosition, loading, calculatingDistances, processedShopIds]);
 
   const createShopIcon = () => {
     return new DivIcon({
@@ -136,8 +173,13 @@ const Map = ({ shops = [], onRouteCalculated }) => {
       if (onRouteCalculated) {
         onRouteCalculated(shopId, routeInfoData);
       }
+      
+      await new Promise(resolve => setTimeout(resolve, Math.random() * 300 + 100));
+      
+      return routeInfoData;
     } catch (error) {
       console.error("Error calculating distance:", error.message);
+      return null;
     }
   };
 
@@ -208,26 +250,28 @@ const Map = ({ shops = [], onRouteCalculated }) => {
         </Marker>
 
         {shops.map((shop) => (
-          <Marker
-            key={shop.id}
-            position={[shop.latitude, shop.longitude]}
-            icon={createShopIcon()}
-            eventHandlers={{
-              click: () => handleShopClick(shop),
-            }}
-          >
-            <Popup>
-              <div>
-                <div className="font-bold">{shop.name}</div>
-                {selectedShopId === shop.id && routeInfo && (
-                  <div>
-                    <div>Quãng đường: {routeInfo.distance} km</div>
-                    <div>Thời gian di chuyển: {routeInfo.time} phút</div>
-                  </div>
-                )}
-              </div>
-            </Popup>
-          </Marker>
+          shop?.latitude && shop?.longitude ? (
+            <Marker
+              key={shop.id}
+              position={[shop.latitude, shop.longitude]}
+              icon={createShopIcon()}
+              eventHandlers={{
+                click: () => handleShopClick(shop),
+              }}
+            >
+              <Popup>
+                <div>
+                  <div className="font-bold">{shop.name}</div>
+                  {selectedShopId === shop.id && routeInfo && (
+                    <div>
+                      <div>Quãng đường: {routeInfo.distance} km</div>
+                      <div>Thời gian di chuyển: {routeInfo.time} phút</div>
+                    </div>
+                  )}
+                </div>
+              </Popup>
+            </Marker>
+          ) : null
         ))}
 
         {route && <Polyline positions={route} color="blue" />}
