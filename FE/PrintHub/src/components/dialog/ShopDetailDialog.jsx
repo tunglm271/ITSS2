@@ -43,10 +43,10 @@ const ShopDetailDialog = ({ shop, onClose }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md"
+        className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md flex flex-col max-h-[90vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4 shrink-0">
           <h2 className="text-2xl font-bold">Chi tiết cửa hàng</h2>
           <button
             onClick={onClose}
@@ -55,8 +55,9 @@ const ShopDetailDialog = ({ shop, onClose }) => {
             <X className="w-6 h-6" />
           </button>
         </div>
-        <hr className="mb-4" />
-        <div className="space-y-4">
+        <hr className="mb-4 shrink-0" />
+        
+        <div className="space-y-4 overflow-y-auto flex-grow custom-scrollbar pr-2">
           <div>
             <div className="flex items-center gap-2">
               <Tag className="w-5 h-5" />
@@ -121,7 +122,8 @@ const ShopDetailDialog = ({ shop, onClose }) => {
             <div className="ml-7">{shop.email}</div>
           </div>
         </div>
-        <div className="flex gap-2 mt-6">
+        
+        <div className="flex gap-2 mt-6 shrink-0">
           <button
             onClick={onClose}
             className="flex-1 border border-gray-400 rounded-lg py-2 cursor-pointer hover:bg-gray-100"

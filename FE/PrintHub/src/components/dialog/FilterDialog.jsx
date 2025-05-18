@@ -5,8 +5,8 @@ const FilterDialog = ({ isOpen, onClose, onApply }) => {
 
   return (
     <div className="fixed inset-0 bg-gray-200/75 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
-        <div className="flex justify-between items-center mb-4">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg flex flex-col max-h-[90vh] overflow-hidden">
+        <div className="flex justify-between items-center mb-4 shrink-0">
           <h2 className="text-xl font-semibold">Bộ lọc</h2>
           <button
             onClick={onClose}
@@ -16,7 +16,7 @@ const FilterDialog = ({ isOpen, onClose, onApply }) => {
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 overflow-y-auto flex-grow custom-scrollbar pr-2">
           {/* Price Range */}
           <div>
             <h3 className="font-medium mb-2">Khoảng giá</h3>
@@ -61,7 +61,7 @@ const FilterDialog = ({ isOpen, onClose, onApply }) => {
           </div>
         </div>
 
-        <div className="flex justify-end space-x-2 mt-6">
+        <div className="flex justify-end space-x-2 mt-6 shrink-0">
           <button
             onClick={onClose}
             className="px-4 py-2 border rounded-md hover:bg-gray-100 transition-colors"
