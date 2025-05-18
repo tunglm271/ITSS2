@@ -1,19 +1,39 @@
-import { MapPin, Star } from "lucide-react";
+import { MapPin, Star, Navigation } from "lucide-react";
 
-const PrintShopCard = ({ shop, onDetailClick, onOrderClick }) => {
+const PrintShopCard = ({ shop, onDetailClick, onOrderClick, distance }) => {
   const renderStars = (rating) => {
+    const MAX_STARS = 5;
     const stars = [];
-    for (let i = 0; i < 5; i++) {
+    
+    for (let i = 0; i < MAX_STARS; i++) {
+      const starValue = Math.min(1, Math.max(0, rating - i));
+      const percent = Math.round(starValue * 100);
+      
       stars.push(
-        <Star
-          key={i}
-          size={16}
-          fill={i < rating ? "#FFD700" : "none"}
-          color={i < rating ? "#FFD700" : "#D1D5DB"}
-          className="inline-block"
-        />
+        <div key={i} className="relative inline-block w-4 h-4" style={{ marginRight: '2px' }}>
+          <Star 
+            size={16} 
+            className="absolute top-0 left-0" 
+            fill="#D1D5DB" 
+            color="#D1D5DB" 
+          />
+          
+          {percent > 0 && (
+            <div 
+              className="absolute top-0 left-0 overflow-hidden" 
+              style={{ width: `${percent}%`, height: '100%' }}
+            >
+              <Star 
+                size={16} 
+                fill="#FFD700" 
+                color="#FFD700" 
+              />
+            </div>
+          )}
+        </div>
       );
     }
+    
     return stars;
   };
 
@@ -30,7 +50,12 @@ const PrintShopCard = ({ shop, onDetailClick, onOrderClick }) => {
         <div className="flex-1">
           <h3 className="font-semibold">{shop.name}</h3>
           <div className="flex items-center">
-            {renderStars(shop.rating)}
+            <div className="flex items-center">
+              {renderStars(shop.rating)}
+            </div>
+            <span className="text-sm font-medium text-amber-500 ml-1">
+              {shop.rating.toFixed(1)}
+            </span>
             <span className="text-sm text-gray-500 ml-1">
               ({shop.reviewCount} đánh giá)
             </span>
@@ -38,6 +63,10 @@ const PrintShopCard = ({ shop, onDetailClick, onOrderClick }) => {
           <div className="flex items-center text-sm text-gray-600 mt-1">
             <MapPin size={14} className="mr-1" />
             {shop.address}
+          </div>
+          <div className="flex items-center text-sm text-gray-600 mt-1">
+            <Navigation size={14} className="mr-1" />
+            {distance ? `${distance} km` : "Đang tính khoảng cách..."}
           </div>
           <div className="flex mt-2 space-x-2">
             <button
