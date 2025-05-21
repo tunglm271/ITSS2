@@ -458,10 +458,10 @@ const Map = forwardRef(({ shops = [], onRouteCalculated }, ref) => {
   }
 
   return (
-    <div className="w-full lg:w-2/3 z-0 h-[300px] md:h-[400px] lg:h-[calc(100vh)] rounded-lg overflow-hidden">
+    <div className="w-full lg:w-2/3 z-0 h-[350px] md:h-[350px] lg:h-[calc(100vh)] rounded-lg overflow-hidden">
       <MapContainer
         center={currentPosition}
-        zoom={15}
+        zoom={18}
         scrollWheelZoom={true}
         className="w-full h-full"
       >
