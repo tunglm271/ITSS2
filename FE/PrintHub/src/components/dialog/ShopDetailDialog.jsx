@@ -4,11 +4,9 @@ const ShopDetailDialog = ({ shop, onClose }) => {
   const renderStars = (rating) => {
     const MAX_STARS = 5;
     const stars = [];
-    
     for (let i = 0; i < MAX_STARS; i++) {
       const starValue = Math.min(1, Math.max(0, rating - i));
       const percent = Math.round(starValue * 100);
-      
       stars.push(
         <div key={i} className="relative inline-block w-[18px] h-[18px]" style={{ marginRight: '2px' }}>
           <Star 
@@ -17,7 +15,6 @@ const ShopDetailDialog = ({ shop, onClose }) => {
             fill="#D1D5DB" 
             color="#D1D5DB" 
           />
-          
           {percent > 0 && (
             <div 
               className="absolute top-0 left-0 overflow-hidden" 
@@ -33,7 +30,6 @@ const ShopDetailDialog = ({ shop, onClose }) => {
         </div>
       );
     }
-    
     return stars;
   };
 
@@ -56,7 +52,6 @@ const ShopDetailDialog = ({ shop, onClose }) => {
           </button>
         </div>
         <hr className="mb-4 shrink-0" />
-        
         <div className="space-y-4 overflow-y-auto flex-grow custom-scrollbar pr-2">
           <div>
             <div className="flex items-center gap-2">
@@ -65,7 +60,6 @@ const ShopDetailDialog = ({ shop, onClose }) => {
             </div>
             <div className="ml-7">{shop.name}</div>
           </div>
-
           <div>
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5" />
@@ -81,7 +75,6 @@ const ShopDetailDialog = ({ shop, onClose }) => {
               </span>
             </div>
           </div>
-
           <div>
             <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5" />
@@ -89,15 +82,6 @@ const ShopDetailDialog = ({ shop, onClose }) => {
             </div>
             <div className="ml-7">{shop.address}</div>
           </div>
-
-          <div>
-            <div className="flex items-center gap-2">
-              <Tag className="w-5 h-5" />
-              <span className="font-semibold">Bảng giá</span>
-            </div>
-            <div className="ml-7 text-blue-600 cursor-pointer">Xem bảng giá</div>
-          </div>
-
           <div>
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5" />
@@ -105,7 +89,6 @@ const ShopDetailDialog = ({ shop, onClose }) => {
             </div>
             <div className="ml-7">{shop.openTime}</div>
           </div>
-
           <div>
             <div className="flex items-center gap-2">
               <Phone className="w-5 h-5" />
@@ -113,7 +96,6 @@ const ShopDetailDialog = ({ shop, onClose }) => {
             </div>
             <div className="ml-7">{shop.phone}</div>
           </div>
-
           <div>
             <div className="flex items-center gap-2">
               <Mail className="w-5 h-5" />
@@ -122,7 +104,6 @@ const ShopDetailDialog = ({ shop, onClose }) => {
             <div className="ml-7">{shop.email}</div>
           </div>
         </div>
-        
         <div className="flex gap-2 mt-6 shrink-0">
           <button
             onClick={onClose}

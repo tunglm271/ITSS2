@@ -5,6 +5,7 @@ import { uploadFile } from "../../services/cloudinary";
 import { ordersAPI } from "../../services/api";
 import { PDFDocument } from 'pdf-lib';
 import mammoth from 'mammoth';
+import { NotificationContext } from "../Header";
 
 const defaultSizes = ["A4", "A3", "A5", "A6"];
 const defaultFormats = ["Đen trắng", "Màu"];
@@ -25,8 +26,14 @@ const OrderDialog = ({ open, onClose, shop }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [orderId, setOrderId] = useState(null);
+  const [showWaiting, setShowWaiting] = useState(false);
+  const [showAccepted, setShowAccepted] = useState(false);
+  const [acceptedTimeout, setAcceptedTimeout] = useState(null);
+  const [notification, setNotification] = useState(null);
+  const [successTimer, setSuccessTimer] = useState(null);
 
   const fileInputRef = useRef(null);
+  const notificationCtx = React.useContext(NotificationContext);
 
   if (!open) return null;
 
@@ -40,18 +47,18 @@ const OrderDialog = ({ open, onClose, shop }) => {
     let roundedPrice;
     if (price < 0.5) {
       roundedPrice = 1;
+    } else if (decimal < 0.5) {
+      roundedPrice = Math.floor(price);
     } else {
-      roundedPrice = decimal < 0.5 ? Math.floor(price) : Math.ceil(price);
+      roundedPrice = Math.ceil(price);
     }
     const finalPrice = roundedPrice * 1000;
-    console.log(`[calculatePrice] Giá gốc: ${price}, Phần thập phân: ${decimal}, Giá làm tròn: ${roundedPrice}, Giá cuối: ${finalPrice}, File: ${item.file.name}`);
     return finalPrice;
   };
 
   const calculateTotalPrice = () => {
     const total = fileList.reduce((total, item) => total + calculatePrice(item), 0);
     const roundedTotal = Math.round(total);
-    console.log(`[calculateTotalPrice] Tổng gốc: ${total}, Tổng làm tròn: ${roundedTotal}`);
     return roundedTotal;
   };
 
@@ -187,11 +194,9 @@ const OrderDialog = ({ open, onClose, shop }) => {
       try {
         const uploadPromises = fileList.map((item) => uploadFile(item.file));
         const uploadResults = await Promise.all(uploadPromises);
-
         const successfulUploads = uploadResults.filter(
           (result) => result !== null
         );
-
         if (successfulUploads.length === fileList.length) {
           const orderFiles = fileList.map((item, index) => ({
             name: successfulUploads[index].display_name,
@@ -202,10 +207,7 @@ const OrderDialog = ({ open, onClose, shop }) => {
             pageCount: item.pageCount,
             price: calculatePrice(item)
           }));
-
           const totalAmount = calculateTotalPrice();
-          console.log('Final total amount:', totalAmount);
-          
           const response = await ordersAPI.create({
             userId: 1,
             shopId: shop.id,
@@ -214,9 +216,21 @@ const OrderDialog = ({ open, onClose, shop }) => {
             note,
             totalAmount: totalAmount
           });
-
           setOrderId(response.data.id);
           setShowSuccess(true);
+          // Đặt timeout để show notification sau khi dialog đóng
+          const waitTime = Math.random() < 0.5 ? 10000 : 15000;
+          setTimeout(() => {
+            if (notificationCtx && notificationCtx.addNotification) {
+              notificationCtx.addNotification({
+                id: response.data.id,
+                date,
+                time,
+                shopName: shop?.name || "",
+                shopAddress: shop?.address || "",
+              });
+            }
+          }, waitTime);
         } else {
           setErrors({
             ...newErrors,
@@ -224,7 +238,6 @@ const OrderDialog = ({ open, onClose, shop }) => {
           });
         }
       } catch (error) {
-        console.error("Error uploading files:", error);
         setErrors({
           ...newErrors,
           files: "Có lỗi xảy ra khi tải file lên. Vui lòng thử lại.",
@@ -235,12 +248,82 @@ const OrderDialog = ({ open, onClose, shop }) => {
     }
   };
 
+  React.useEffect(() => {
+    return () => {
+      if (acceptedTimeout) clearTimeout(acceptedTimeout);
+    };
+  }, [acceptedTimeout]);
+
+  React.useEffect(() => {
+    if (showSuccess) {
+      const timer = setTimeout(() => {
+        setShowSuccess(false);
+        setFileList([]);
+        setDate("");
+        setTime("");
+        setNote("");
+        setErrors({});
+        setOrderId(null);
+        onClose();
+      }, 5000);
+      setSuccessTimer(timer);
+      return () => clearTimeout(timer);
+    } else if (successTimer) {
+      clearTimeout(successTimer);
+      setSuccessTimer(null);
+    }
+    // eslint-disable-next-line
+  }, [showSuccess]);
+
   if (showSuccess) {
     return (
+      <div className="fixed inset-0 bg-gray-200/75 flex items-center justify-center z-50">
+        <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md flex flex-col items-center">
+          <div className="bg-blue-100 rounded-full p-4 mb-4 flex items-center justify-center">
+            <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
+          </div>
+          <h2 className="text-2xl font-bold text-center mb-1">Đặt in thành công!</h2>
+          <p className="text-gray-600 text-center mb-4">Đơn hàng đã gửi đến cửa hàng, vui lòng chờ cửa hàng xác nhận.</p>
+          <button
+            className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            onClick={() => {
+              setShowSuccess(false);
+              setFileList([]);
+              setDate("");
+              setTime("");
+              setNote("");
+              setErrors({});
+              setOrderId(null);
+              onClose();
+            }}
+          >
+            Đóng
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (showWaiting) {
+    return (
+      <div className="fixed inset-0 bg-gray-200/75 flex items-center justify-center z-50">
+        <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md flex flex-col items-center">
+          <div className="bg-blue-100 rounded-full p-4 mb-4 flex items-center justify-center">
+            <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
+          </div>
+          <h2 className="text-2xl font-bold text-center mb-1">Đã gửi đơn đặt in</h2>
+          <p className="text-gray-600 text-center mb-4">Vui lòng chờ cửa hàng xác nhận đơn của bạn...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (showAccepted) {
+    return (
       <OrderSuccessDialog
-        open={showSuccess}
+        open={showAccepted}
         onClose={() => {
-          setShowSuccess(false);
+          setShowAccepted(false);
           onClose();
         }}
         order={{
