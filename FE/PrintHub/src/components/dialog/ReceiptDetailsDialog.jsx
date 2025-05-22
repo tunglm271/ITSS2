@@ -46,22 +46,24 @@ const ReceiptDetailsDialog = ({ open, onClose, orderId }) => {
   const downloadReceiptAsImage = async () => {
     try {
       setDownloading(true);
-      
       if (receiptRef.current) {
+        // Lấy kích thước thực tế của receipt
+        const rect = receiptRef.current.getBoundingClientRect();
+        // Tính toán chiều cao động dựa trên số lượng file (nếu muốn có min/max height có thể thêm vào)
+        const dynamicHeight = rect.height;
+        const dynamicWidth = rect.width;
         const dataUrl = await htmlToImage.toPng(receiptRef.current, {
           quality: 1.0,
           pixelRatio: 2,
           backgroundColor: 'white',
           skipFonts: false,
-          canvasWidth: 1200,
-          canvasHeight: 1500
+          canvasWidth: dynamicWidth * 2, // scale lên cho nét
+          canvasHeight: dynamicHeight * 2
         });
-        
         const link = document.createElement('a');
         link.download = `hoa-don-${orderId}.png`;
         link.href = dataUrl;
         link.click();
-        
         setTimeout(() => {
           setDownloading(false);
           onClose();
@@ -116,7 +118,7 @@ const ReceiptDetailsDialog = ({ open, onClose, orderId }) => {
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-4 max-h-[300px] overflow-y-auto">
+            <div className="bg-gray-50 rounded-lg p-4">
               <h3 className="font-semibold mb-2">Thông tin các file</h3>
               {order?.files?.map((file, index) => {
                 console.log(`File ${index} details:`, {

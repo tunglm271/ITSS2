@@ -166,8 +166,20 @@ const OrderDialog = ({ open, onClose, shop }) => {
     const newErrors = {};
     if (fileList.length === 0)
       newErrors.files = "Vui lòng chọn ít nhất 1 file.";
+    fileList.forEach((item, idx) => {
+      if (!item.quantity || isNaN(item.quantity) || !Number.isInteger(Number(item.quantity)) || Number(item.quantity) <= 0) {
+        newErrors[`quantity_${idx}`] = `Số lượng file phải là số nguyên dương.`;
+      }
+    });
     if (!date) newErrors.date = "Vui lòng chọn ngày nhận.";
     if (!time) newErrors.time = "Vui lòng chọn giờ nhận.";
+    if (date && time) {
+      const now = new Date();
+      const pickup = new Date(`${date}T${time}`);
+      if (pickup < now) {
+        newErrors.datetime = "Ngày giờ nhận không được trước thời điểm hiện tại.";
+      }
+    }
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
@@ -351,6 +363,11 @@ const OrderDialog = ({ open, onClose, shop }) => {
                         {formatPrice(calculatePrice(item))}
                       </div>
                     </div>
+                    {errors[`quantity_${idx}`] && (
+                      <div className="text-red-500 text-sm mt-1">
+                        {errors[`quantity_${idx}`]}
+                      </div>
+                    )}
                   </div>
                 ))
               )}
@@ -380,6 +397,11 @@ const OrderDialog = ({ open, onClose, shop }) => {
             {(errors.date || errors.time) && (
               <div className="text-red-500 text-sm mt-1">
                 {errors.date || errors.time}
+              </div>
+            )}
+            {errors.datetime && (
+              <div className="text-red-500 text-sm mt-1">
+                {errors.datetime}
               </div>
             )}
           </div>
