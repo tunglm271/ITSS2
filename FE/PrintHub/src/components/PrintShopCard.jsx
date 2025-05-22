@@ -1,6 +1,6 @@
 import { MapPin, Star, Navigation } from "lucide-react";
 
-const PrintShopCard = ({ shop, onDetailClick, onOrderClick, distance }) => {
+const PrintShopCard = ({ shop, onDetailClick, onOrderClick, distance, onMapFocus }) => {
   const renderStars = (rating) => {
     const MAX_STARS = 5;
     const stars = [];
@@ -48,7 +48,7 @@ const PrintShopCard = ({ shop, onDetailClick, onOrderClick, distance }) => {
           />
         )}
         <div className="flex-1">
-          <h3 className="font-semibold">{shop.name}</h3>
+          <h3 className="font-semibold cursor-pointer hover:underline text-blue-700" onClick={onMapFocus}>{shop.name}</h3>
           <div className="flex items-center">
             <div className="flex items-center">
               {renderStars(shop.rating)}

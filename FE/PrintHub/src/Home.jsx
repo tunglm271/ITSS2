@@ -218,6 +218,11 @@ const Home = () => {
                         distance={shopDistances[shop.id]}
                         onDetailClick={() => setSelectedShop(shop)}
                         onOrderClick={() => setOrderShop(shop)}
+                        onMapFocus={() => {
+                          if (mapRef.current && mapRef.current.focusShopOnMap) {
+                            mapRef.current.focusShopOnMap(shop);
+                          }
+                        }}
                       />
                     ))}
                   </div>

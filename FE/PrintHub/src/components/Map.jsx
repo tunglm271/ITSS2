@@ -51,6 +51,11 @@ const Map = forwardRef(({ shops = [], onRouteCalculated }, ref) => {
   const retryTimeoutRef = useRef(null);
   const [positionChanged, setPositionChanged] = useState(false);
   const [mapKey, setMapKey] = useState(Date.now());
+  const mapContainerRef = useRef();
+  const [fitBounds, setFitBounds] = useState(null);
+  const [showShopPopup, setShowShopPopup] = useState(false);
+  const [popupPosition, setPopupPosition] = useState(null);
+  const [popupShop, setPopupShop] = useState(null);
 
   useImperativeHandle(ref, () => ({
     refreshDistances: () => {
@@ -75,6 +80,23 @@ const Map = forwardRef(({ shops = [], onRouteCalculated }, ref) => {
             console.error("Error refreshing position:", error);
           }
         );
+      }
+    },
+    focusShopOnMap: async (shop) => {
+      if (shop?.latitude && shop?.longitude && currentPosition) {
+        setSelectedShopId(shop.id);
+        await fetchRoute(currentPosition, [shop.latitude, shop.longitude], shop.id);
+        setFitBounds([[currentPosition[0], currentPosition[1]], [shop.latitude, shop.longitude]]);
+        // Mở popup của marker quán in trên bản đồ
+        setTimeout(() => {
+          if (mapContainerRef.current) {
+            mapContainerRef.current.eachLayer?.((layer) => {
+              if (layer.getLatLng && layer.openPopup && layer.getLatLng().lat === shop.latitude && layer.getLatLng().lng === shop.longitude) {
+                layer.openPopup();
+              }
+            });
+          }
+        }, 300);
       }
     }
   }));
@@ -449,6 +471,25 @@ const Map = forwardRef(({ shops = [], onRouteCalculated }, ref) => {
     }
   };
 
+  // Auto fit bounds when route is drawn
+  useEffect(() => {
+    if (fitBounds && mapContainerRef.current) {
+      const map = mapContainerRef.current;
+      if (map && map.fitBounds) {
+        map.fitBounds(fitBounds, { padding: [60, 60] });
+      }
+    }
+  }, [fitBounds]);
+
+  // Custom MapContainer to get map instance
+  function MapContainerWithRef(props) {
+    const map = useMap();
+    useEffect(() => {
+      mapContainerRef.current = map;
+    }, [map]);
+    return null;
+  }
+
   if (loading || !currentPosition) {
     return (
       <div className="w-full lg:w-2/3 z-0 h-[300px] md:h-[400px] lg:h-[calc(100vh)] rounded-lg overflow-hidden flex items-center justify-center bg-gray-100">
@@ -465,6 +506,7 @@ const Map = forwardRef(({ shops = [], onRouteCalculated }, ref) => {
         scrollWheelZoom={true}
         className="w-full h-full"
       >
+        <MapContainerWithRef />
         <MapCenter center={currentPosition} />
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -473,7 +515,7 @@ const Map = forwardRef(({ shops = [], onRouteCalculated }, ref) => {
         <Marker position={currentPosition}>
           <Popup>Vị trí của bạn</Popup>
         </Marker>
-
+        
         {shops.map((shop) => (
           shop?.latitude && shop?.longitude ? (
             <Marker
@@ -498,7 +540,21 @@ const Map = forwardRef(({ shops = [], onRouteCalculated }, ref) => {
             </Marker>
           ) : null
         ))}
-
+        {showShopPopup && popupPosition && (
+          <Marker position={popupPosition} icon={createShopIcon()} eventHandlers={{ popupclose: () => setShowShopPopup(false) }}>
+            <Popup autoClose={false} closeOnClick={true}>
+              <div>
+                <div className="font-bold">{popupShop?.name}</div>
+                {routeInfo && (
+                  <div>
+                    <div>Quãng đường: {routeInfo.distance} km</div>
+                    <div>Thời gian di chuyển: {routeInfo.time} phút</div>
+                  </div>
+                )}
+              </div>
+            </Popup>
+          </Marker>
+        )}
         {route && <Polyline positions={route} color="blue" />}
       </MapContainer>
     </div>
