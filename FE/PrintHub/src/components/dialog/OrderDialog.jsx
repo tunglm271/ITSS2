@@ -3,9 +3,18 @@ import React, { useRef, useState } from "react";
 import OrderSuccessDialog from "./OrderSuccessDialog";
 import { uploadFile } from "../../services/cloudinary";
 import { ordersAPI } from "../../services/api";
+import { PDFDocument } from 'pdf-lib';
+import mammoth from 'mammoth';
 
-const defaultSizes = ["A4", "A5", "A3"];
-const defaultFormats = ["Màu", "Đen trắng"];
+const defaultSizes = ["A4", "A3", "A5", "A6"];
+const defaultFormats = ["Đen trắng", "Màu"];
+
+const PRICE_PER_SHEET = {
+  "A3": 0.600,
+  "A4": 0.350,
+  "A5": 0.250,
+  "A6": 0.150
+};
 
 const OrderDialog = ({ open, onClose, shop }) => {
   const [fileList, setFileList] = useState([]);
@@ -21,20 +30,125 @@ const OrderDialog = ({ open, onClose, shop }) => {
 
   if (!open) return null;
 
+  const calculatePrice = (item) => {
+    const basePrice = PRICE_PER_SHEET[item.size];
+    const isColor = item.format === "Màu";
+    const pricePerSheet = isColor ? basePrice * 2 : basePrice;
+    const sheets = item.file.type.startsWith('image/') ? 1 : Math.ceil(item.pageCount / 2);
+    const price = pricePerSheet * sheets * item.quantity;
+    const decimal = price - Math.floor(price);
+    let roundedPrice;
+    if (price < 0.5) {
+      roundedPrice = 1;
+    } else {
+      roundedPrice = decimal < 0.5 ? Math.floor(price) : Math.ceil(price);
+    }
+    const finalPrice = roundedPrice * 1000;
+    console.log(`[calculatePrice] Giá gốc: ${price}, Phần thập phân: ${decimal}, Giá làm tròn: ${roundedPrice}, Giá cuối: ${finalPrice}, File: ${item.file.name}`);
+    return finalPrice;
+  };
+
+  const calculateTotalPrice = () => {
+    const total = fileList.reduce((total, item) => total + calculatePrice(item), 0);
+    const roundedTotal = Math.round(total);
+    console.log(`[calculateTotalPrice] Tổng gốc: ${total}, Tổng làm tròn: ${roundedTotal}`);
+    return roundedTotal;
+  };
+
+  const formatPrice = (price) => {
+    const roundedPrice = Math.floor(price);
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0
+    }).format(roundedPrice);
+  };
+
   const handleAddFileClick = () => {
     fileInputRef.current.click();
   };
 
-  const handleFileChange = (e) => {
+  const getPageCount = async (file) => {
+    try {
+      if (file.type === 'application/pdf') {
+        try {
+          const buffer = await file.arrayBuffer();
+          const pdfDoc = await PDFDocument.load(buffer, { 
+            updateMetadata: false,
+            ignoreEncryption: true
+          });
+          
+          const pageCount = pdfDoc.getPageCount();
+          
+          console.log(`PDF page count for ${file.name}: ${pageCount} pages`);
+          return pageCount;
+        } catch (error) {
+          console.error('Error with pdf-lib:', error);
+          const estimatedPages = Math.max(1, Math.ceil(file.size / (75 * 1024)));
+          console.log(`PDF-lib failed for ${file.name}, using size estimate: ${estimatedPages} pages`);
+          return estimatedPages;
+        }
+      } else if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          const result = await mammoth.convertToHtml({ arrayBuffer });
+          const htmlContent = result.value;
+          
+          const pageBreaks = (htmlContent.match(/<p[^>]*style=['"][^'"]*page-break-[^'"]*['"][^>]*>/g) || []).length;
+          const headings = (htmlContent.match(/<h[1-6][^>]*>/g) || []).length;
+          const paragraphs = (htmlContent.match(/<p[^>]*>/g) || []).length;
+          const tables = (htmlContent.match(/<table[^>]*>/g) || []).length;
+          const images = (htmlContent.match(/<img[^>]*>/g) || []).length;
+          
+          const contentBasedEstimate = Math.ceil(
+            paragraphs / 15 + 
+            tables * 1.2 +    
+            images * 0.5 +   
+            headings * 0.3    
+          );
+          
+          const pageCount = pageBreaks > 0 ? 
+            Math.max(pageBreaks + 1, contentBasedEstimate) : 
+            contentBasedEstimate;
+          
+          console.log(`Word file ${file.name} estimated page count: ${pageCount}`);
+          return Math.max(1, pageCount);
+        } catch (error) {
+          console.error('Error in Word content analysis:', error);
+          const sizeEstimate = Math.max(1, Math.ceil(file.size / (30 * 1024))); // ~30KB per page
+          console.log(`Falling back to size estimate: ${sizeEstimate} pages`);
+          return sizeEstimate;
+        }
+      } else if (file.type.startsWith('image/')) {
+        console.log(`Image file ${file.name} is counted as 1 page`);
+        return 1;
+      }
+      
+      console.log(`Unknown file type ${file.type} for ${file.name}, defaulting to 1 page`);
+      return 1;
+    } catch (error) {
+      console.error('Error counting pages for file:', file.name, error);
+      const estimatedPages = Math.max(1, Math.ceil(file.size / (75 * 1024)));
+      console.log(`Using size-based estimate for ${file.name}: ${estimatedPages} pages`);
+      return estimatedPages;
+    }
+  };
+
+  const handleFileChange = async (e) => {
     const files = Array.from(e.target.files);
-    const newFiles = files.map((file) => ({
-      file,
-      quantity: 1,
-      size: defaultSizes[0],
-      format: defaultFormats[0],
+    const newFiles = await Promise.all(files.map(async (file) => {
+      const pageCount = await getPageCount(file);
+      return {
+        file,
+        quantity: 1,
+        size: defaultSizes[0],
+        format: defaultFormats[0],
+        pageCount
+      };
     }));
     setFileList((prev) => [...prev, ...newFiles]);
-    e.target.value = null; // reset input
+    e.target.value = null; 
   };
 
   const handleRemoveFile = (index) => {
@@ -59,37 +173,39 @@ const OrderDialog = ({ open, onClose, shop }) => {
     if (Object.keys(newErrors).length === 0) {
       setLoading(true);
       try {
-        // Upload all files to Cloudinary
         const uploadPromises = fileList.map((item) => uploadFile(item.file));
         const uploadResults = await Promise.all(uploadPromises);
 
-        // Filter out any failed uploads
         const successfulUploads = uploadResults.filter(
           (result) => result !== null
         );
 
         if (successfulUploads.length === fileList.length) {
-          // All files uploaded successfully
           const orderFiles = fileList.map((item, index) => ({
             name: successfulUploads[index].display_name,
             url: successfulUploads[index].url,
             quantity: item.quantity,
             size: item.size,
             format: item.format,
+            pageCount: item.pageCount,
+            price: calculatePrice(item)
           }));
 
+          const totalAmount = calculateTotalPrice();
+          console.log('Final total amount:', totalAmount);
+          
           const response = await ordersAPI.create({
             userId: 1,
             shopId: shop.id,
             files: orderFiles,
             pickupTime: `${date}T${time}`,
             note,
+            totalAmount: totalAmount
           });
 
           setOrderId(response.data.id);
           setShowSuccess(true);
         } else {
-          // Some files failed to upload
           setErrors({
             ...newErrors,
             files: "Một số file không thể tải lên. Vui lòng thử lại.",
@@ -132,19 +248,19 @@ const OrderDialog = ({ open, onClose, shop }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl drop-shadow-xl p-6 w-full max-w-xl relative flex flex-col max-h-[90vh] overflow-hidden"
+        className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-2xl relative flex flex-col max-h-[90vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 rounded-full cursor-pointer p-2 hover:bg-gray-100 z-10"
-        >
-          <X className="w-6 h-6" />
-        </button>
-        <p className="text-2xl font-bold mb-4 shrink-0">
-          Đặt in tại {shop?.name || "Shop Name"}
-        </p>
-        
+        <div className="flex items-center justify-between mb-6 shrink-0">
+          <h2 className="text-2xl font-bold">Đặt in</h2>
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-full"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
         <div className="overflow-y-auto flex-grow custom-scrollbar pr-2">
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
@@ -162,6 +278,7 @@ const OrderDialog = ({ open, onClose, shop }) => {
                 ref={fileInputRef}
                 className="hidden"
                 onChange={handleFileChange}
+                accept=".pdf,.doc,.docx,image/*"
               />
             </div>
             <div>
@@ -222,6 +339,18 @@ const OrderDialog = ({ open, onClose, shop }) => {
                         ))}
                       </select>
                     </div>
+                    <div className="flex justify-between text-sm text-gray-600">
+                      <div>
+                        {item.file.type.startsWith('image/') ? (
+                          'File ảnh'
+                        ) : (
+                          'File tài liệu'
+                        )}
+                      </div>
+                      <div className="font-medium">
+                        {formatPrice(calculatePrice(item))}
+                      </div>
+                    </div>
                   </div>
                 ))
               )}
@@ -266,32 +395,38 @@ const OrderDialog = ({ open, onClose, shop }) => {
           </div>
         </div>
         
-        <div className="flex justify-end gap-2 mt-6 shrink-0">
-          <button
-            onClick={onClose}
-            className="border border-gray-400 rounded-lg py-1 px-4 cursor-pointer hover:bg-gray-100"
-            disabled={loading}
-          >
-            Hủy
-          </button>
-          <button
-            className={`flex items-center gap-2 rounded-lg py-1 px-4 cursor-pointer ${
-              loading
-                ? "bg-blue-400 cursor-not-allowed"
-                : "bg-blue-700 hover:bg-blue-800"
-            } text-white`}
-            onClick={handleSubmit}
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                Đang tải lên...
-              </>
-            ) : (
-              "Đặt in"
-            )}
-          </button>
+        <div className="flex flex-col gap-2 mt-6 shrink-0">
+          <div className="flex justify-between items-center text-lg font-semibold">
+            <span>Tổng tiền:</span>
+            <span className="text-blue-600">{formatPrice(calculateTotalPrice())}</span>
+          </div>
+          <div className="flex justify-end gap-2">
+            <button
+              onClick={onClose}
+              className="border border-gray-400 rounded-lg py-1 px-4 cursor-pointer hover:bg-gray-100"
+              disabled={loading}
+            >
+              Hủy
+            </button>
+            <button
+              className={`flex items-center gap-2 rounded-lg py-1 px-4 cursor-pointer ${
+                loading
+                  ? "bg-blue-400 cursor-not-allowed"
+                  : "bg-blue-700 hover:bg-blue-800"
+              } text-white`}
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Đang tải lên...
+                </>
+              ) : (
+                "Đặt in"
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>

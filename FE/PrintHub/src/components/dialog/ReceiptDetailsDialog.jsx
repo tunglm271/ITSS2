@@ -28,6 +28,10 @@ const ReceiptDetailsDialog = ({ open, onClose, orderId }) => {
       try {
         const response = await ordersAPI.getById(orderId);
         setOrder(response.data);
+        console.log('Order data:', response.data);
+        if (response.data.files) {
+          console.log('Order files:', response.data.files);
+        }
         const shopResponse = await shopsAPI.getById(response.data.shopId);
         setShop(shopResponse.data);
       } catch (error) {
@@ -112,21 +116,48 @@ const ReceiptDetailsDialog = ({ open, onClose, orderId }) => {
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-4">
+            <div className="bg-gray-50 rounded-lg p-4 max-h-[300px] overflow-y-auto">
               <h3 className="font-semibold mb-2">Thông tin các file</h3>
-              {order?.files?.map((file, index) => (
-                <div key={index} className="border-b last:border-0 py-2">
-                  <div className="flex items-center gap-2 mb-1">
-                    <FileText className="w-4 h-4 text-blue-500" />
-                    <span className="font-medium">{file.name}</span>
+              {order?.files?.map((file, index) => {
+                console.log(`File ${index} details:`, {
+                  name: file.name,
+                  quantity: file.quantity,
+                  size: file.size,
+                  format: file.format,
+                  price: file.price
+                });
+                return (
+                  <div key={index} className="border-b last:border-0 py-3 px-2">
+                    <div className="flex items-center gap-2 mb-2 bg-white p-2 rounded">
+                      <FileText className="w-4 h-4 text-blue-500 shrink-0" />
+                      <span className="font-medium text-sm w-full truncate">{file.name || 'Tên file không xác định'}</span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 text-sm text-gray-600">
+                      <div>Số lượng: {file.quantity}</div>
+                      <div>Kích thước: {file.size}</div>
+                      <div>Định dạng: {file.format}</div>
+                    </div>
+                    <div className="text-right text-blue-600 font-semibold mt-1">
+                      Giá: {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(file.price)}
+                    </div>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-sm text-gray-600">
-                    <div>Số lượng: {file.quantity}</div>
-                    <div>Kích thước: {file.size}</div>
-                    <div>Định dạng: {file.format}</div>
-                  </div>
+                );
+              })}
+            </div>
+
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-semibold">Tổng tiền:</span>
+                <span className="text-blue-600 font-bold text-lg">
+                  {order?.totalAmount ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(order.totalAmount) : ''}
+                </span>
+              </div>
+              {order?.note && (
+                <div className="mt-2">
+                  <span className="font-semibold">Ghi chú:</span>
+                  <span className="ml-2">{order.note}</span>
                 </div>
-              ))}
+              )}
             </div>
 
             <div className="bg-gray-50 rounded-lg p-4">
