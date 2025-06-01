@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
-import { Search, Bell, RefreshCw } from "lucide-react";
+import { Search, Bell, RefreshCw, History } from "lucide-react";
 import ReactDOM from "react-dom";
+import TransactionHistoryDialog from "./dialog/TransactionHistoryDialog"; // Thêm dòng này nếu đã có component, nếu chưa thì tạo mới
 
 export const NotificationContext = React.createContext({
   notifications: [],
@@ -19,6 +20,7 @@ const Header = ({ onSearch, refreshing, loading, handleRefresh }) => {
   });
   const [toast, setToast] = useState(null);
   const toastTimer = useRef(null);
+  const [showTransactionHistory, setShowTransactionHistory] = useState(false);
 
   const handleRead = (id) => {
     if (!readIds.includes(id)) {
@@ -132,7 +134,16 @@ const Header = ({ onSearch, refreshing, loading, handleRefresh }) => {
         </div>
       )}
       <div className="relative flex items-center py-4 px-4">
-        <p className="text-3xl font-bold text-blue-600">PrintHub</p>
+        <div className="flex items-center">
+          <img
+            src="/letter-p.svg"
+            alt="PrintHub Logo"
+            className="w-10 h-10 object-contain"
+          />
+          <span className="-ml-2 text-3xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            rintHub
+          </span>
+        </div>
         <div className="relative ml-15 w-[770px] max-w-full">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
@@ -155,17 +166,28 @@ const Header = ({ onSearch, refreshing, loading, handleRefresh }) => {
             </button>
           )}
         </div>
-        <button 
-          onClick={handleRefresh}
-          disabled={refreshing || loading}
-          className="absolute right-88 top-1/2 -translate-y-1/2 flex items-center gap-2 text-blue-600 px-6 py-2 rounded-lg border border-blue-200 bg-white hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition-all duration-150"
-          title="Sử dụng khi muốn cập nhật vị trí thủ công"
-        >
-          <RefreshCw size={18} className={`${refreshing ? 'animate-spin' : ''}`} />
-          <span className="font-semibold text-base">Làm mới vị trí</span>
-        </button>
-        <div className="absolute right-8 top-1/2 -translate-y-1/2 flex items-center space-x-4 pr-0 flex-shrink-0">
-          <button className="text-gray-600 relative notification-bell" onClick={() => setShowDropdown((v) => !v)}>
+        {/* Nút chức năng */}
+        <div className="flex items-center gap-4 ml-auto mr-4">
+          <button 
+            onClick={handleRefresh}
+            disabled={refreshing || loading}
+            className="flex items-center gap-2 text-blue-600 px-6 py-2 rounded-lg border border-blue-200 bg-white hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition-all duration-150"
+            title="Sử dụng khi muốn cập nhật vị trí thủ công"
+          >
+            <RefreshCw size={18} className={`${refreshing ? 'animate-spin' : ''}`} />
+            <span className="font-semibold text-base">Làm mới vị trí</span>
+          </button>
+          <button
+            className="flex items-center gap-2 text-blue-600 px-6 py-2 rounded-lg border border-blue-200 bg-white hover:bg-blue-50 transition-colors shadow-sm"
+            onClick={() => setShowTransactionHistory(true)}
+          >
+            <History size={18} />
+            <span className="font-semibold text-base">Lịch sử giao dịch</span>
+          </button>
+          <button
+            className="text-gray-600 relative notification-bell"
+            onClick={() => setShowDropdown((v) => !v)}
+          >
             <Bell size={20} />
             {unreadCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">{unreadCount}</span>
@@ -174,6 +196,12 @@ const Header = ({ onSearch, refreshing, loading, handleRefresh }) => {
         </div>
       </div>
       {notificationDropdown}
+      {showTransactionHistory && (
+        <TransactionHistoryDialog
+          open={showTransactionHistory}
+          onClose={() => setShowTransactionHistory(false)}
+        />
+      )}
       <div className="border-b border-gray-200"></div>
     </div>
   );
