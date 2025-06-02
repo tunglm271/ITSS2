@@ -171,24 +171,24 @@ const Header = ({ onSearch, refreshing, loading, handleRefresh }) => {
           <button 
             onClick={handleRefresh}
             disabled={refreshing || loading}
-            className="flex items-center gap-2 text-blue-600 px-6 py-2 rounded-lg border border-blue-200 bg-white hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition-all duration-150"
+            className="flex items-center gap-2 text-blue-600 px-4 md:px-6 py-2 rounded-lg border border-blue-200 bg-white hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm transition-all duration-150 text-sm md:text-base"
             title="Sử dụng khi muốn cập nhật vị trí thủ công"
           >
             <RefreshCw size={18} className={`${refreshing ? 'animate-spin' : ''}`} />
-            <span className="font-semibold text-base">Làm mới vị trí</span>
+            <span className="font-semibold hidden sm:inline">Làm mới vị trí</span>
           </button>
           <button
-            className="flex items-center gap-2 text-blue-600 px-6 py-2 rounded-lg border border-blue-200 bg-white hover:bg-blue-50 transition-colors shadow-sm"
+            className="flex items-center gap-2 text-blue-600 px-4 md:px-6 py-2 rounded-lg border border-blue-200 bg-white hover:bg-blue-50 transition-colors shadow-sm text-sm md:text-base"
             onClick={() => setShowTransactionHistory(true)}
           >
             <History size={18} />
-            <span className="font-semibold text-base">Lịch sử giao dịch</span>
+            <span className="font-semibold hidden sm:inline">Lịch sử giao dịch</span>
           </button>
           <button
             className="text-gray-600 relative notification-bell"
             onClick={() => setShowDropdown((v) => !v)}
           >
-            <Bell size={20} />
+            <Bell size={22} />
             {unreadCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">{unreadCount}</span>
             )}
